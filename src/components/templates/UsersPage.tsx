@@ -65,7 +65,7 @@ export function UsersPage() {
             <Breadcrumb>
                 <BreadcrumbItem>
                     {/* <Link href={'/admin/configs'}> */}
-                    <BreadcrumbLink onClick={() => router.push("'/admin/configs")}>Configurações</BreadcrumbLink>
+                    <BreadcrumbLink onClick={() => router.push("/admin/configs")}>Configurações</BreadcrumbLink>
                     {/* </Link> */}
                 </BreadcrumbItem>
 
