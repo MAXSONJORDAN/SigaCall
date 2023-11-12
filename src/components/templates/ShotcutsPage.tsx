@@ -5,24 +5,33 @@ import { useEffect, useState } from 'react';
 import { Search2Icon } from '@chakra-ui/icons';
 import { DataTable } from '../organismes/DataTable';
 import Link from 'next/link';
+import axios from 'axios';
+import { useRouter } from 'next/navigation';
 
 export function ShotcutsPage() {
 
     const [dataFormatada, setDataFormatada] = useState("");
-    const [usuarios, setUsuarios] = useState<any[]>([]);
+    const [shotcuts, setShotcuts] = useState<any[]>([]);
+
+    const router = useRouter();
 
     useEffect(() => {
-        const data = [
-            { id: "2312", "nome": "Maxson Araujo", "tratamento": "Dr.", },
-            { id: "2332", "nome": "Lucilo Fernandes", "tratamento": "Dr.", },
-            { id: "2352", "nome": "Marcia Cardoso", "tratamento": "Dra.", },
-        ];
 
-        data.map((user: any) => {
-            user.actions = (<Button colorScheme='purple'>Editar</Button>)
+        axios.get("/api/shotcuts").then((axiosResponse: any) => {
+            const data = axiosResponse.data;
+
+            data.map((shotcuts: any) => {
+                shotcuts.actions = (<Button colorScheme='purple'
+                    onClick={() => {
+                        router.push(`shotcuts/editar/${shotcuts.id}`)
+                    }}
+                >Editar</Button>)
+            })
+
+            // console.log("data", data)
+            setShotcuts(data);
         })
 
-        setUsuarios(data);
     }, [])
 
 
@@ -53,8 +62,7 @@ export function ShotcutsPage() {
                         </InputLeftElement>
                         <Input type='tel' placeholder='Termo de pesquisa' />
                     </InputGroup>
-                    <HStack spacing={2}>
-                        <Button ml={2}>Buscar</Button>
+                    <HStack spacing={2} ml={2}>
                         <Link href={'shotcuts/novo'}>
                             <Button colorScheme='purple' rightIcon={<MdPersonAdd />}>Novo</Button>
                         </Link>
@@ -65,11 +73,12 @@ export function ShotcutsPage() {
                     <DataTable columns={
                         [
                             { accessor: 'id', Header: "id" },
-                            { accessor: 'nome', Header: "Nome", columnWidth: 1 },
-                            { accessor: 'tratamento', Header: "Tratamento." },
+                            { accessor: 'identificador', Header: "Identificador" },
+                            { accessor: 'mensagem', Header: "Mensagem", columnWidth: 1 },
+                            { accessor: 'icone', Header: "Icone." },
                             { accessor: "actions", Header: "Ações" }
 
-                        ]} data={usuarios} />
+                        ]} data={shotcuts} />
                 </Box>
             </VStack>
 
