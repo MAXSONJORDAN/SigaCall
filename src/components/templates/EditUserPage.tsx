@@ -7,16 +7,18 @@ import { useEffect, useState } from 'react';
 
 type IProps = {
     tratamentos: any[],
-    roles: any[]
+    roles: any[],
+    user: any
 }
 export function EditUserPage(props: IProps) {
+    const editMode = props.user ? true : false;
 
     const { tratamentos, roles } = props;
 
     const toast = useToast({ position: 'top', isClosable: true });
     const router = useRouter();
 
-    const [usuario, setUsuario] = useState({
+    const [usuario, setUsuario] = useState(props.user ?? {
         nome: '',
         nomeTratamento: '',
         email: '',
@@ -24,6 +26,7 @@ export function EditUserPage(props: IProps) {
         roleId: '2',
         senha: '',
     });
+
 
     const handleChange = (e: any) => {
         const { name, value } = e.target;
@@ -35,14 +38,16 @@ export function EditUserPage(props: IProps) {
 
     const handleSubmit = (e: any) => {
         e.preventDefault();
+
         // Lógica para enviar o novo usuário para o servidor
-        console.log(usuario);
-        axios.post("/api/users", usuario).then((axiosResponse: any) => {
+        let promiseUser = editMode ? axios.patch("/api/users", { id: props.user.id, ...usuario }) : axios.post("/api/users", usuario)
+
+        promiseUser.then((axiosResponse: any) => {
             const data = axiosResponse.data;
             toast({ "title": "Sucesso!", description: data.message, status: 'success' });
 
             router.push("/admin/configs/users");
-        }).catch((err:any)=>{
+        }).catch((err: any) => {
             const data = err.response?.data;
             toast({ "title": "Algo errado!", description: data.message, status: 'error' });
         })
@@ -51,7 +56,7 @@ export function EditUserPage(props: IProps) {
 
     return (
         <>
-            <Heading>Novo Usuário</Heading>
+            <Heading>{editMode ? "Editar" : "Novo"} Usuário</Heading>
             <Breadcrumb>
                 <BreadcrumbItem>
                     <Link href={'/admin/configs'}>
@@ -66,7 +71,7 @@ export function EditUserPage(props: IProps) {
                 </BreadcrumbItem>
 
                 <BreadcrumbItem isCurrentPage>
-                    <BreadcrumbLink>Novo</BreadcrumbLink>
+                    <BreadcrumbLink>{editMode ? 'Editar' : 'Novo'}</BreadcrumbLink>
                 </BreadcrumbItem>
             </Breadcrumb>
 
@@ -131,7 +136,7 @@ export function EditUserPage(props: IProps) {
                                 </Select>
                             </FormControl>
                         </HStack>
-                        <FormControl id="senha" isRequired>
+                        <FormControl id="senha" isRequired={!editMode}>
                             <FormLabel>Senha</FormLabel>
                             <Input
                                 type="password"
@@ -141,7 +146,7 @@ export function EditUserPage(props: IProps) {
                             />
                         </FormControl>
                         <Button type="submit" colorScheme="purple">
-                            Cadastrar
+                            {editMode ? "Alterar" : "Cadastrar"}
                         </Button>
                     </VStack>
 

@@ -1,5 +1,5 @@
 'use client'
-import { Box, Breadcrumb, BreadcrumbItem, BreadcrumbLink, Button, Checkbox, Flex, HStack, Heading, Input, InputGroup, InputLeftElement, VStack } from '@chakra-ui/react'
+import { Box, Breadcrumb, BreadcrumbItem, BreadcrumbLink, Button, Checkbox, Flex, HStack, Heading, Input, InputGroup, InputLeftElement, VStack, useToast } from '@chakra-ui/react'
 import { MdPersonAdd } from 'react-icons/md';
 import { useEffect, useState } from 'react';
 import { Search2Icon } from '@chakra-ui/icons';
@@ -12,18 +12,34 @@ export function UsersPage() {
 
     const [searchText, setSearchText] = useState("");
     const [usuarios, setUsuarios] = useState<any[]>([]);
+    const toast = useToast({ position: 'top', isClosable: true })
 
     const router = useRouter();
-
-    useEffect(() => {
+    const updateUsers = () => {
         axios.get("/api/users").then((axiosResult: any) => {
 
             const data = axiosResult.data;
             data.map((user: any) => {
-                user.actions = (<Button colorScheme='purple'>Editar</Button>)
-                user.status = (<Checkbox isChecked={user.isActive}
-                    onChange={(ev:any)=>{
-                        console.log(ev.target.checked)
+                user.actions = (<Button colorScheme={user.id === 1 ? 'gray' : 'purple'}
+                    onClick={() => {
+                        if (user.id !== 1) { router.push(`users/editar/${user.id}`) }
+                    }}
+                >Editar</Button>)
+                user.status = (<Checkbox disabled={user.id === 1} isChecked={user.isActive}
+                    onChange={(ev: any) => {
+
+                        axios.put("/api/users", { id: user.id, status: ev.target.checked }).then((axiosResult) => {
+                            const data = axiosResult?.data;
+                            toast({ title: "Sucesso!", description: data.message, status: "success" })
+                            setUsuarios([])
+                            updateUsers();
+                        }).catch((err) => {
+                            console.error(err);
+                            const axiosResult = err.response;
+                            const data = axiosResult?.data;
+                            console.log("data", err)
+                            toast({ title: 'Ops!', description: data?.message ?? "Erro desconhecido!", status: 'error' })
+                        });
                     }}
                     colorScheme='purple'></Checkbox>)
             })
@@ -31,14 +47,16 @@ export function UsersPage() {
             console.log(data);
             setUsuarios(data);
         })
-
+    }
+    useEffect(() => {
+        updateUsers();
     }, [])
 
 
     const usuariosFiltred = usuarios.filter((item: any) => {
-        return item.email?.toUpperCase().includes(searchText?.toUpperCase()) ||
+        return (item.email?.toUpperCase().includes(searchText?.toUpperCase()) ||
             item.nomeTratamento?.toUpperCase().includes(searchText?.toUpperCase()) ||
-            item.nome?.toUpperCase().includes(searchText?.toUpperCase());
+            item.nome?.toUpperCase().includes(searchText?.toUpperCase())) && item.id !== 1;
     })
 
     return (
@@ -47,7 +65,7 @@ export function UsersPage() {
             <Breadcrumb>
                 <BreadcrumbItem>
                     {/* <Link href={'/admin/configs'}> */}
-                        <BreadcrumbLink onClick={()=>router.push("'/admin/configs")}>Configurações</BreadcrumbLink>
+                    <BreadcrumbLink onClick={() => router.push("'/admin/configs")}>Configurações</BreadcrumbLink>
                     {/* </Link> */}
                 </BreadcrumbItem>
 
