@@ -1,4 +1,13 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = {}
+const withFonts = require("next-fonts");
+const withPlugins = require("next-compose-plugins");
 
-module.exports = nextConfig
+const nextConfig = {};
+
+module.exports = withPlugins(
+  [
+    [withFonts],
+    // your plugins go here.
+  ],
+  nextConfig
+);
