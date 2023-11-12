@@ -8,7 +8,7 @@ import { useEffect, useState } from 'react';
 type IProps = {
     tratamentos: any[],
     roles: any[],
-    user: any
+    user?: any
 }
 export function EditUserPage(props: IProps) {
     const editMode = props.user ? true : false;

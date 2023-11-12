@@ -1,5 +1,8 @@
 import { EditUserPage } from "@/components/templates/EditUserPage";
 import { db } from '@/db/connector';
+import { cache } from 'react'
+ 
+export const revalidate = 1
 
 export default async function Home({ params }: any) {
 

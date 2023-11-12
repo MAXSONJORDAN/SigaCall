@@ -4,12 +4,19 @@ import axios from 'axios';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
-export function EditTratamentoPage() {
+
+type IProps = {
+    tratamento?: any
+}
+
+export function EditTratamentoPage(props: IProps) {
+
+    const editMode = props.tratamento ? true : false;
 
     const toast = useToast({ position: "top", isClosable: true });
     const router = useRouter();
 
-    const [tratamento, setTratamento] = useState({
+    const [tratamento, setTratamento] = useState(editMode ? props.tratamento : {
         identificador: '',
         pronuncia: '',
     });
@@ -31,13 +38,14 @@ export function EditTratamentoPage() {
             tratamento.pronuncia.length > 0) {
 
             // Lógica para enviar o novo usuário para o servidor
-            axios.post("/api/tratamentos", tratamento).then(axiosResponse => {
+            const promiseEdit = editMode ? axios.patch("/api/tratamentos", { id: props.tratamento.id, ...tratamento }) : axios.post("/api/tratamentos", tratamento);
+            promiseEdit.then(axiosResponse => {
                 const data = axiosResponse.data;
                 toast({ title: "Sucesso!", description: "Tratamento cadastrado com sucesso!", status: "success" })
                 router.push("/admin/configs/tratamentos");
             }).catch((err) => {
                 console.error(err);
-                toast({ title: "Algo errado!", description: err.response.data.message ?? "Falha desconhecida!", status: "success" })
+                toast({ title: "Ops!", description: err.response.data.message ?? "Falha desconhecida!", status: "error" })
 
             })
 
@@ -50,7 +58,7 @@ export function EditTratamentoPage() {
 
     return (
         <>
-            <Heading>Novo Tratamento</Heading>
+            <Heading>{editMode ? 'Editar' : 'Novo'} Tratamento</Heading>
 
             <Breadcrumb>
                 <BreadcrumbItem>
@@ -66,7 +74,7 @@ export function EditTratamentoPage() {
                 </BreadcrumbItem>
 
                 <BreadcrumbItem isCurrentPage>
-                    <BreadcrumbLink>Novo</BreadcrumbLink>
+                    <BreadcrumbLink>{editMode ? 'Editar' : 'Novo'}</BreadcrumbLink>
                 </BreadcrumbItem>
             </Breadcrumb>
 
@@ -95,7 +103,7 @@ export function EditTratamentoPage() {
                             />
                         </FormControl>
                         <Button type="submit" colorScheme="purple">
-                            Cadastrar
+                            {editMode ? 'Alterar' : 'Cadastrar'}
                         </Button>
                     </VStack>
 

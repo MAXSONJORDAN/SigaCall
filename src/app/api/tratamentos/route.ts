@@ -38,6 +38,37 @@ export async function GET(req: NextRequest) {
 }
 
 
+export async function PATCH(req: NextRequest) {
+
+  revalidatePath(req.nextUrl.basePath)
+  const data = await req.json();
+  // await db.exec("insert into items ('name','description','img') values('"+req.nextUrl.searchParams.get("id")+"','teste','teste.img')")
+
+  const response = await db.tratamento.update({
+    data: data, where: { id: data.id }
+  }).then(() => {
+
+    return new Response(JSON.stringify({ message: "Tratamento atualizado com sucesso!" }), {
+      headers: { "Content-Type": "application/json", 'Cache-Control': 'no-store' },
+      status: 200,
+    });
+
+  }).catch((err) => {
+    console.error("caiu aqui", err);
+
+    return new Response(JSON.stringify({ message: "Falha ao atualizar o tratamento;" }), {
+      headers: { "Content-Type": "application/json", 'Cache-Control': 'no-store' },
+      status: 400,
+    });
+  })
+
+  return response;
+
+
+}
+
+
+
 
 
 

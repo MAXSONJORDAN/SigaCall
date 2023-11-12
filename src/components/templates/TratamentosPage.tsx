@@ -6,19 +6,26 @@ import { Search2Icon } from '@chakra-ui/icons';
 import { DataTable } from '../organismes/DataTable';
 import Link from 'next/link';
 import axios from 'axios';
+import { useRouter } from 'next/navigation';
 
 export function TratamentosPage() {
 
     const [tratamentos, setTratamentos] = useState<any[]>([]);
     const [searchText, setSearchText] = useState<any>("");
 
+    const router = useRouter()
+
     useEffect(() => {
 
         axios.get("/api/tratamentos").then((axiosResponse: any) => {
             const data = axiosResponse.data;
 
-            data.map((user: any) => {
-                user.actions = (<Button colorScheme='purple'>Editar</Button>)
+            data.map((tratamento: any) => {
+                tratamento.actions = (<Button colorScheme='purple'
+                    onClick={() => {
+                        router.push(`tratamentos/editar/${tratamento.id}`)
+                    }}
+                >Editar</Button>)
             })
 
             console.log("data", data)
