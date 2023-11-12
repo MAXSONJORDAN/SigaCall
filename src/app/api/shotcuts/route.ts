@@ -35,38 +35,27 @@ export async function POST(req: NextRequest) {
 
   revalidatePath(req.nextUrl.basePath)
   const data = await req.json();
-  console.log("data", data);
-  // await db.exec("insert into items ('name','description','img') values('"+req.nextUrl.searchParams.get("id")+"','teste','teste.img')")
 
-  // Perform a database query to retrieve all items from the "items" table
-  console.log("antes")
-  await db.user.create({
-    data: {
-      email: data.email,
-      nome: data.nome,
-      nomeTratamento: data.nomeTratamento,
-      senha: createHash('sha256').update(data.senha).digest('hex'),
-      tratamentoId: parseInt(data.tratamentoId),
-      roleId: parseInt(data.roleId)
-    }
+  const response = await db.shotcuts.create({
+    data
+  }).then(() => {
+
+    return new Response(JSON.stringify({ message: "Shotcut cadastrado com sucesso!" }), {
+      headers: { "Content-Type": "application/json", 'Cache-Control': 'no-store' },
+      status: 200,
+    });
+
   }).catch((err) => {
     console.error("caiu aqui", err);
 
-    return new Response(JSON.stringify({ message: "Falha ao cadastrar o usuário;" }), {
+    return new Response(JSON.stringify({ message: "Falha ao cadastrar o shotcut;" }), {
       headers: { "Content-Type": "application/json", 'Cache-Control': 'no-store' },
       status: 400,
     });
   })
 
-  console.log("depois")
+  return response;
 
-  // const items = await db.user.findMany();
-
-  // Return the items as a JSON response with status 200
-  return new Response(JSON.stringify({ message: "Usuário cadastrado com sucesso!" }), {
-    headers: { "Content-Type": "application/json", 'Cache-Control': 'no-store' },
-    status: 200,
-  });
 }
 
 

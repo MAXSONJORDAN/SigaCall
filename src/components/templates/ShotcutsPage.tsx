@@ -1,5 +1,5 @@
 'use client'
-import { Box, Breadcrumb, BreadcrumbItem, BreadcrumbLink, Button, Flex, HStack, Heading, Input, InputGroup, InputLeftElement, VStack } from '@chakra-ui/react'
+import { Box, Breadcrumb, BreadcrumbItem, BreadcrumbLink, Button, Flex, HStack, Heading, Icon, Input, InputGroup, InputLeftElement, VStack } from '@chakra-ui/react'
 import { MdPersonAdd } from 'react-icons/md';
 import { useEffect, useState } from 'react';
 import { Search2Icon } from '@chakra-ui/icons';
@@ -7,11 +7,13 @@ import { DataTable } from '../organismes/DataTable';
 import Link from 'next/link';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
+import * as Icons from 'react-icons/md'
 
 export function ShotcutsPage() {
 
-    const [dataFormatada, setDataFormatada] = useState("");
     const [shotcuts, setShotcuts] = useState<any[]>([]);
+    const [searchText, setSearchText] = useState("");
+
 
     const router = useRouter();
 
@@ -26,6 +28,8 @@ export function ShotcutsPage() {
                         router.push(`shotcuts/editar/${shotcuts.id}`)
                     }}
                 >Editar</Button>)
+                //@ts-ignore
+                shotcuts.icon = (<Icon boxSize={'8'} as={Icons[shotcuts.icone]} />)
             })
 
             // console.log("data", data)
@@ -35,7 +39,11 @@ export function ShotcutsPage() {
     }, [])
 
 
-
+    const shotcutsFiltred = shotcuts.filter((item: any) => {
+        return (item.identificador?.toUpperCase().includes(searchText?.toUpperCase()) ||
+            item.mensagem?.toUpperCase().includes(searchText?.toUpperCase()) ||
+            item.icone?.toUpperCase().includes(searchText?.toUpperCase()));
+    })
 
     return (
         <>
@@ -60,7 +68,7 @@ export function ShotcutsPage() {
                         <InputLeftElement pointerEvents='none'>
                             <Search2Icon color='gray.300' />
                         </InputLeftElement>
-                        <Input type='tel' placeholder='Termo de pesquisa' />
+                        <Input type='text' value={searchText} onChange={(ev: any) => { setSearchText(ev.target.value) }} placeholder='Termo de pesquisa' />
                     </InputGroup>
                     <HStack spacing={2} ml={2}>
                         <Link href={'shotcuts/novo'}>
@@ -75,10 +83,10 @@ export function ShotcutsPage() {
                             { accessor: 'id', Header: "id" },
                             { accessor: 'identificador', Header: "Identificador" },
                             { accessor: 'mensagem', Header: "Mensagem", columnWidth: 1 },
-                            { accessor: 'icone', Header: "Icone." },
+                            { accessor: 'icon', Header: "Icone." },
                             { accessor: "actions", Header: "Ações" }
 
-                        ]} data={shotcuts} />
+                        ]} data={shotcutsFiltred} />
                 </Box>
             </VStack>
 
