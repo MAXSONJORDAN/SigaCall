@@ -114,7 +114,7 @@ export function EditShotcutsPage(props: IProps) {
                                 type="texta"
                                 name="mensagem"
                                 placeholder='ex: Doutor'
-                                value={shotcut.pronuncia}
+                                value={shotcut.mensagem}
                                 onChange={handleChange}
                             />
                         </FormControl>
