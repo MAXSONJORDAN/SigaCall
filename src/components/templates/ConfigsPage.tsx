@@ -32,13 +32,14 @@ export function ConfigsPage() {
                 <Heading size={'md'}>Cadastro</Heading>
                 <MenuList>
                     <MenuItem href='configs/shotcuts' icon='MdList'>Botões de Atalhos</MenuItem>
-                    <MenuItem href='configs/users' icon='MdPeopleAlt'>Usuários</MenuItem>
+                    <MenuItem href='configs/consultorios' icon='MdMeetingRoom'>Consultórios</MenuItem>
                     <MenuItem href='configs/tratamentos' icon='MdAccountCircle'>Pron. Tratamentos (Sr. Sra, Dr. Dra...)</MenuItem>
+                    <MenuItem href='configs/users' icon='MdPeopleAlt'>Usuários</MenuItem>
                 </MenuList>
               
                 <Heading size={'md'} mt={6}>Outros</Heading>
                 <MenuList>
-                    <MenuItem href='configs/chamadas' icon='MdSpatialAudioOff'>Chamadas</MenuItem>
+                    <MenuItem href='configs/chamadas' icon='MdSettingsApplications'>Chamadas</MenuItem>
                 </MenuList>
             </VStack>
 

@@ -5,7 +5,6 @@ import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import * as icons from 'react-icons/md';
 
-
 type IProps = {
     shotcut?: any
 }

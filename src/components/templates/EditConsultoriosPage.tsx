@@ -4,27 +4,26 @@ import axios from 'axios';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 
-
 type IProps = {
-    tratamento?: any
+    consultorio?: any
 }
 
-export function EditTratamentoPage(props: IProps) {
+export function EditConsultoriosPage(props: IProps) {
 
-    const editMode = props.tratamento ? true : false;
+    const editMode = props.consultorio ? true : false;
 
     const toast = useToast({ position: "top", isClosable: true });
     const router = useRouter();
 
-    const [tratamento, setTratamento] = useState(editMode ? props.tratamento : {
+    const [consultorios, setConsultorios] = useState(editMode ? props.consultorio : {
         identificador: '',
         pronuncia: '',
     });
 
     const handleChange = (e: any) => {
         const { name, value } = e.target;
-        setTratamento({
-            ...tratamento,
+        setConsultorios({
+            ...consultorios,
             [name]: value,
         });
     };
@@ -32,17 +31,21 @@ export function EditTratamentoPage(props: IProps) {
     const handleSubmit = (e: any) => {
         e.preventDefault();
 
-        if (tratamento.identificador &&
-            tratamento.identificador.length > 0 &&
-            tratamento.pronuncia &&
-            tratamento.pronuncia.length > 0) {
+        if (consultorios.identificador &&
+            consultorios.identificador.length > 0 &&
+            consultorios.pronuncia &&
+            consultorios.pronuncia.length > 0) {
 
             // Lógica para enviar o novo usuário para o servidor
-            const promiseEdit = editMode ? axios.patch("/api/tratamentos", { id: props.tratamento.id, ...tratamento }) : axios.post("/api/tratamentos", tratamento);
+            const promiseEdit = editMode ?
+                axios.patch("/api/consultorios", { id: props.consultorio.id, ...consultorios })
+                : axios.post("/api/consultorios", consultorios);
+
+
             promiseEdit.then(axiosResponse => {
                 const data = axiosResponse.data;
-                toast({ title: "Sucesso!", description: "Tratamento cadastrado com sucesso!", status: "success" })
-                router.push("/admin/configs/tratamentos");
+                toast({ title: "Sucesso!", description: data.message, status: "success" })
+                router.push("/admin/configs/consultorios");
             }).catch((err) => {
                 console.error(err);
                 toast({ title: "Ops!", description: err.response.data.message ?? "Falha desconhecida!", status: "error" })
@@ -58,7 +61,7 @@ export function EditTratamentoPage(props: IProps) {
 
     return (
         <>
-            <Heading>{editMode ? 'Editar' : 'Novo'} Tratamento</Heading>
+            <Heading>{editMode ? 'Editar' : 'Novo'} Consultorio</Heading>
 
             <Breadcrumb>
                 <BreadcrumbItem>
@@ -68,8 +71,8 @@ export function EditTratamentoPage(props: IProps) {
                 </BreadcrumbItem>
 
                 <BreadcrumbItem>
-                    <Link href={'/admin/configs/tratamentos'}>
-                        <BreadcrumbLink>Tratamentos</BreadcrumbLink>
+                    <Link href={'/admin/configs/consultorios'}>
+                        <BreadcrumbLink>Consultórios</BreadcrumbLink>
                     </Link>
                 </BreadcrumbItem>
 
@@ -87,8 +90,8 @@ export function EditTratamentoPage(props: IProps) {
                             <Input
                                 type="text"
                                 name="identificador"
-                                placeholder='ex: Dr.'
-                                value={tratamento.identificador}
+                                placeholder='ex: sala 2'
+                                value={consultorios.identificador}
                                 onChange={handleChange}
                             />
                         </FormControl>
@@ -97,8 +100,8 @@ export function EditTratamentoPage(props: IProps) {
                             <Input
                                 type="text"
                                 name="pronuncia"
-                                placeholder='ex: Doutor'
-                                value={tratamento.pronuncia}
+                                placeholder='ex: Consultório 2 no segundo andar.'
+                                value={consultorios.pronuncia}
                                 onChange={handleChange}
                             />
                         </FormControl>

@@ -3,7 +3,8 @@ import { Box, Breadcrumb, BreadcrumbItem, BreadcrumbLink, Button, FormControl, F
 import axios from 'axios';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
+
 
 type IProps = {
     tratamentos: any[],
