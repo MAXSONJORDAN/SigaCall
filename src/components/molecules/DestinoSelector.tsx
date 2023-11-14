@@ -4,7 +4,8 @@ import { useState } from "react"
 
 type IProps = {
     destino: any,
-    onChange: (value: any) => void
+    onChange: (value: any) => void,
+    destinos: any[]
 }
 export const DestinoSelector = (props: IProps) => {
 
@@ -15,20 +16,18 @@ export const DestinoSelector = (props: IProps) => {
         <Flex bg={'white'} borderRadius={10} mt={4} w={'100%'} flexDirection={'column'} padding={2}>
             <Flex flexDirection={'row'}>
                 <FormControl id="tratamentoId" size={'sm'}>
-                    <FormLabel>Sala, Consultório ou Guichê</FormLabel>
+                    <FormLabel>Destino de Atendimento</FormLabel>
                     <Select
                         name="tratamentoId"
                         disabled={!editMode}
                         size={'sm'}
                         value={value}
                         onChange={(ev) => { setValue(ev.target.value) }}
-                    // onChange={(ev) => props.onChange(ev.target.value)}
                     >
-                        {/* {tratamentos.map((item: any) => {
+                        {props.destinos.map((item: any) => {
                             return <option value={item.id}>{item.identificador}</option>
-                        })} */}
-                        <option value={'1'}>Consultorio 1</option>
-                        <option value={'2'}>Consultorio 2</option>
+                        })}
+
                     </Select>
                 </FormControl>
                 <Flex mt={2}>
@@ -43,7 +42,7 @@ export const DestinoSelector = (props: IProps) => {
                             }
                         }}
                     >
-                        {editMode?"Salvar":"Alterar"}
+                        {editMode ? "Salvar" : "Alterar"}
                     </Button>
                 </Flex>
             </Flex>

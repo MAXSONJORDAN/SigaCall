@@ -1,7 +1,10 @@
 import { Box, Button, Flex, FormControl, FormLabel, Input } from "@chakra-ui/react";
 import { useState } from "react";
 
-export const PacienteInput = () => {
+type IProps = {
+    onCaller: (paciente: string) => void
+}
+export const PacienteInput = (props: IProps) => {
 
     const [inputText, setInputText] = useState("");
 
@@ -22,7 +25,7 @@ export const PacienteInput = () => {
             </FormControl>
             <Flex mt={2}>
                 <Box flex={1} />
-                <Button size={'sm'}>
+                <Button size={'sm'} onClick={() => { props.onCaller(inputText); setInputText("") }}>
                     Chamar
                 </Button>
             </Flex>

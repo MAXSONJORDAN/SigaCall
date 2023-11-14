@@ -38,14 +38,14 @@ export function EditDestinosAtendimentoPage(props: IProps) {
 
             // Lógica para enviar o novo usuário para o servidor
             const promiseEdit = editMode ?
-                axios.patch("/api/consultorios", { id: props.destino.id, ...consultorios })
-                : axios.post("/api/consultorios", consultorios);
+                axios.patch("/api/destinos", { id: props.destino.id, ...consultorios })
+                : axios.post("/api/destinos", consultorios);
 
 
             promiseEdit.then(axiosResponse => {
                 const data = axiosResponse.data;
                 toast({ title: "Sucesso!", description: data.message, status: "success" })
-                router.push("/admin/configs/consultorios");
+                router.push("/admin/configs/destinos");
             }).catch((err) => {
                 console.error(err);
                 toast({ title: "Ops!", description: err.response.data.message ?? "Falha desconhecida!", status: "error" })

@@ -1,33 +1,29 @@
-import { Box, HStack, Heading, Icon, Tooltip, VStack } from "@chakra-ui/react"
-import { type } from "os";
+import { Box, Flex, Heading, Icon, Tooltip, VStack } from "@chakra-ui/react"
+import { Shotcuts } from "@prisma/client";
 import * as icons from 'react-icons/md'
 
-type IProps = {
-    onClick?: () => void,
-    title: string,
-    description: string,
-
+interface IProps extends Shotcuts {
+    onClick?: () => void
 }
 export const Shotcut = (props: IProps) => {
 
-
     return (<>
-        <Box _hover={{backgroundColor:'purple.300'}}  borderRadius={10} bg={'purple.500'} h={'70px'} w={'99%'} cursor={'pointer'} onClick={() => props.onClick ? props.onClick() : null}>
-            <HStack padding={2} color={'white'}>
-                <VStack textAlign={'left'}>
-                    <Tooltip label={props.title}>
+        <Box _hover={{ backgroundColor: 'purple.300' }} borderRadius={10} bg={'purple.500'} h={'70px'} w={'99%'} cursor={'pointer'} onClick={() => props.onClick ? props.onClick() : null}>
+            <Flex padding={2} color={'white'}>
+                <VStack textAlign={'left'} flex={1}>
+                    <Tooltip label={props.identificador}>
                         <Heading w={'100%'} size={'md'} textAlign={'left'} flex={1} noOfLines={1} textOverflow={'ellipsis'}>
-                            {props.title}
+                            {props.identificador}
                         </Heading>
                     </Tooltip>
-                    <Tooltip label={props.description}>
+                    <Tooltip label={props.mensagem}>
                         <Heading w={'100%'} size={'xs'} flex={1} noOfLines={1} textOverflow={'ellipsis'}>
-                            {props.description}
+                            {props.mensagem}
                         </Heading>
                     </Tooltip>
                 </VStack>
-                <Icon as={icons['Md10K']} boxSize={'12'} />
-            </HStack>
+                <Icon as={icons[props.icone]} boxSize={'12'} />
+            </Flex>
         </Box >
     </>)
 }

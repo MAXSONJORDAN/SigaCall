@@ -1,7 +1,6 @@
 'use client'
-import { Box, Center, Flex, FormControl, FormLabel, HStack, Heading, Icon, Image, Text, VStack, Input, FormHelperText, Button, Textarea, Select } from '@chakra-ui/react'
+import { Box, Center, Flex, HStack, Heading, Icon, Image, Text, VStack, useToast } from '@chakra-ui/react'
 import { MdCalendarMonth } from 'react-icons/md';
-import PerfectScrollbar from 'react-perfect-scrollbar'
 import { useEffect, useState } from 'react';
 import { cumprimentoDoDia, formatarDataHora } from '@/utils';
 import { BoxNums } from '../molecules/BoxNums';
@@ -10,14 +9,37 @@ import { Chamada } from '../atoms/Chamada';
 import { PacienteInput } from '../molecules/PacienteInput';
 import { DestinoSelector } from '../molecules/DestinoSelector';
 import { AlertaInput } from '../molecules/AlertaInput';
+import { Chamadas, DestinoAtendimento, Shotcuts } from '@prisma/client';
+import { Manager } from "socket.io-client";
+import axios from 'axios';
 
-export function HomePage() {
+
+
+
+type IProps = {
+    destinos: DestinoAtendimento[],
+    shotcuts: Shotcuts[],
+    socketUrl: string,
+}
+export function HomePage(props: IProps) {
 
     const [dataFormatada, setDataFormatada] = useState("");
     const [destinoAtendimento, setDestinoAtendimento] = useState("");
+    const [socket, setSocket] = useState<any>();
+    const [pacientes, setPacientes] = useState<Chamadas[]>([]);
+
+    const toast = useToast({ position: 'top', isClosable: true });
+
+    const refreshPacientes = () => {
+        axios.get("/api/chamadas/pacientes").then((axiosResponse) => {
+            const data = axiosResponse.data;
+            setPacientes(data);
+        })
+    }
 
     const handleChangeDestinoAtendimento = (value) => {
         console.log("Destino Atendimento", value)
+        setDestinoAtendimento(value)
     }
 
     useEffect(() => {
@@ -30,6 +52,26 @@ export function HomePage() {
                 clearInterval(timeRefresh);
             }
         }, 1000)
+    }, [])
+
+    useEffect(() => {
+        refreshPacientes();
+        console.log(props.socketUrl);
+        const manager = new Manager(props.socketUrl);
+        const socket = manager.socket("/");
+
+        setSocket(socket);
+
+        socket.on("chamar-paciente", (paciente) => {
+            console.log('chamando paciente:', paciente)
+        });
+
+        return () => {
+            socket.off("chamar-paciente", (paciente) => {
+                console.log('chamando paciente:', paciente)
+            });
+            socket.disconnect();
+        }
     }, [])
 
 
@@ -86,23 +128,25 @@ export function HomePage() {
                                     },
                                 }} bg={'white'} shadow={'xl'} height={'100%'} borderRadius={10} overflowX={'scroll'} padding={2} className="scrollbar">
 
-                                    <Chamada nome='Exemple Name Person Called' sala='Sala 2' hora='10:20 pm' />
-                                    <Chamada nome='Exemple Name Person Called' sala='Sala 2' hora='10:20 pm' />
-                                    <Chamada nome='Exemple Name Person Called' sala='Sala 2' hora='10:20 pm' />
-                                    <Chamada nome='Exemple Name Person Called' sala='Sala 2' hora='10:20 pm' />
-                                    <Chamada nome='Exemple Name Person Called' sala='Sala 2' hora='10:20 pm' />
-                                    <Chamada nome='Exemple Name Person Called' sala='Sala 2' hora='10:20 pm' />
-                                    <Chamada nome='Exemple Name Person Called' sala='Sala 2' hora='10:20 pm' />
-                                    <Chamada nome='Exemple Name Person Called' sala='Sala 2' hora='10:20 pm' />
-                                    <Chamada nome='Exemple Name Person Called' sala='Sala 2' hora='10:20 pm' />
-                                    <Chamada nome='Exemple Name Person Called' sala='Sala 2' hora='10:20 pm' />
+                                    {pacientes.map(item => {
+                                        return (<Chamada nome='Exemple Name Person Called' sala='Sala 2' hora='10:20 pm' />)
+                                    })}
+
+                                  
 
                                 </VStack>
                             </Flex>
                             <Flex flex={1} flexDirection={'column'} padding={4}>
                                 <Heading size={'md'}>Painel de Comando</Heading>
-                                <PacienteInput />
-                                <DestinoSelector onChange={handleChangeDestinoAtendimento} destino={destinoAtendimento} />
+                                <PacienteInput onCaller={(paciente) => {
+                                    socket.emit("chamar", {
+                                        paciente: paciente,
+                                        tipo: 0,
+                                        destinoAtendimento,
+                                        userId: 0
+                                    })
+                                }} />
+                                <DestinoSelector destinos={props.destinos} onChange={handleChangeDestinoAtendimento} destino={destinoAtendimento} />
                                 <AlertaInput />
                             </Flex>
                         </Flex>
@@ -126,14 +170,11 @@ export function HomePage() {
                                 backgroundColor: `rgba(0, 0, 0, 0.05)`,
                             },
                         }} >
-                            <Shotcut title='Exemle button' description='Exemple text thats will be speaked by narrator.' />
-                            <Shotcut title='Exemle button' description='Exemple text thats will be speaked by narrator.' />
-                            <Shotcut title='Exemle button' description='Exemple text thats will be speaked by narrator.' />
-                            <Shotcut title='Exemle button' description='Exemple text thats will be speaked by narrator.' />
-                            <Shotcut title='Exemle button' description='Exemple text thats will be speaked by narrator.' />
-                            <Shotcut title='Exemle button' description='Exemple text thats will be speaked by narrator.' />
-                            <Shotcut title='Exemle button' description='Exemple text thats will be speaked by narrator.' />
-                            <Shotcut title='Exemle button' description='Exemple text thats will be speaked by narrator.' />
+
+                            {props.shotcuts.map(item => {
+                                return (<Shotcut identificador={item.identificador} mensagem={item.mensagem} icone={item.icone} id={item.id} />)
+                            })}
+
                         </VStack>
                     </Flex>
 
