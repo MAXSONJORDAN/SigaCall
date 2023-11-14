@@ -5,17 +5,17 @@ import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 
 type IProps = {
-    consultorio?: any
+    destino?: any
 }
 
-export function EditConsultoriosPage(props: IProps) {
+export function EditDestinosAtendimentoPage(props: IProps) {
 
-    const editMode = props.consultorio ? true : false;
+    const editMode = props.destino ? true : false;
 
     const toast = useToast({ position: "top", isClosable: true });
     const router = useRouter();
 
-    const [consultorios, setConsultorios] = useState(editMode ? props.consultorio : {
+    const [consultorios, setConsultorios] = useState(editMode ? props.destino : {
         identificador: '',
         pronuncia: '',
     });
@@ -38,7 +38,7 @@ export function EditConsultoriosPage(props: IProps) {
 
             // Lógica para enviar o novo usuário para o servidor
             const promiseEdit = editMode ?
-                axios.patch("/api/consultorios", { id: props.consultorio.id, ...consultorios })
+                axios.patch("/api/consultorios", { id: props.destino.id, ...consultorios })
                 : axios.post("/api/consultorios", consultorios);
 
 
@@ -61,7 +61,7 @@ export function EditConsultoriosPage(props: IProps) {
 
     return (
         <>
-            <Heading>{editMode ? 'Editar' : 'Novo'} Consultorio</Heading>
+            <Heading>{editMode ? 'Editar' : 'Novo'} Destino de Atendimento</Heading>
 
             <Breadcrumb>
                 <BreadcrumbItem>
@@ -71,8 +71,8 @@ export function EditConsultoriosPage(props: IProps) {
                 </BreadcrumbItem>
 
                 <BreadcrumbItem>
-                    <Link href={'/admin/configs/consultorios'}>
-                        <BreadcrumbLink>Consultórios</BreadcrumbLink>
+                    <Link href={'/admin/configs/destinos'}>
+                        <BreadcrumbLink>Destinos de Atendimento</BreadcrumbLink>
                     </Link>
                 </BreadcrumbItem>
 

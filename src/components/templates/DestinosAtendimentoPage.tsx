@@ -8,9 +8,9 @@ import Link from 'next/link';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
 
-export function ConsultoriosPage() {
+export function DestinosAtendimentoPage() {
 
-    const [consultorios, setConsultorios] = useState<any[]>([]);
+    const [destinos, setDestinos] = useState<any[]>([]);
     const [searchText, setSearchText] = useState("");
 
 
@@ -18,32 +18,32 @@ export function ConsultoriosPage() {
 
     useEffect(() => {
 
-        axios.get("/api/consultorios").then((axiosResponse: any) => {
+        axios.get("/api/destinos").then((axiosResponse: any) => {
             const data = axiosResponse.data;
 
             data.map((consultorio: any) => {
                 consultorio.actions = (<Button colorScheme='purple'
                     onClick={() => {
-                        router.push(`consultorios/editar/${consultorio.id}`)
+                        router.push(`destinos/editar/${consultorio.id}`)
                     }}
                 >Editar</Button>)
             })
 
             // console.log("data", data)
-            setConsultorios(data);
+            setDestinos(data);
         })
 
     }, [])
 
 
-    const shotcutsFiltred = consultorios.filter((item: any) => {
+    const shotcutsFiltred = destinos.filter((item: any) => {
         return (item.identificador?.toUpperCase().includes(searchText?.toUpperCase()) ||
             item.pronuncia?.toUpperCase().includes(searchText?.toUpperCase()));
     })
 
     return (
         <>
-            <Heading>Consultórios</Heading>
+            <Heading>Destinos de Atedimento</Heading>
             <Breadcrumb>
                 <BreadcrumbItem>
                     <Link href={'/admin/configs'}>
@@ -52,7 +52,7 @@ export function ConsultoriosPage() {
                 </BreadcrumbItem>
 
                 <BreadcrumbItem isCurrentPage>
-                    <BreadcrumbLink>Consultórios</BreadcrumbLink>
+                    <BreadcrumbLink>Destinos de Atendimento</BreadcrumbLink>
                 </BreadcrumbItem>
             </Breadcrumb>
             <VStack width={'100%'} paddingRight={6}>
@@ -67,7 +67,7 @@ export function ConsultoriosPage() {
                         <Input type='text' value={searchText} onChange={(ev: any) => { setSearchText(ev.target.value) }} placeholder='Termo de pesquisa' />
                     </InputGroup>
                     <HStack spacing={2} ml={2}>
-                        <Link href={'consultorios/novo'}>
+                        <Link href={'destinos/novo'}>
                             <Button colorScheme='purple' rightIcon={<MdPersonAdd />}>Novo</Button>
                         </Link>
                     </HStack>

@@ -32,7 +32,7 @@ export function ConfigsPage() {
                 <Heading size={'md'}>Cadastro</Heading>
                 <MenuList>
                     <MenuItem href='configs/shotcuts' icon='MdList'>Botões de Atalhos</MenuItem>
-                    <MenuItem href='configs/consultorios' icon='MdMeetingRoom'>Consultórios</MenuItem>
+                    <MenuItem href='configs/destinos' icon='MdMeetingRoom'>Destinos de Atendimento</MenuItem>
                     <MenuItem href='configs/tratamentos' icon='MdAccountCircle'>Pron. Tratamentos (Sr. Sra, Dr. Dra...)</MenuItem>
                     <MenuItem href='configs/users' icon='MdPeopleAlt'>Usuários</MenuItem>
                 </MenuList>

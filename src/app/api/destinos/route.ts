@@ -8,7 +8,7 @@ export async function GET(req: NextRequest) {
   revalidatePath(req.nextUrl.basePath)
 
   console.log(req.nextUrl.basePath)
-  let items: any[] = await db.consultorio.findMany();
+  let items: any[] = await db.destinoAtendimento.findMany();
 
 
   // Return the items as a JSON response with status 200
@@ -24,7 +24,7 @@ export async function POST(req: NextRequest) {
   revalidatePath(req.nextUrl.basePath)
   const data = await req.json();
 
-  const response = await db.consultorio.create({
+  const response = await db.destinoAtendimento.create({
     data
   }).then(() => {
 
@@ -53,7 +53,7 @@ export async function PATCH(req: NextRequest) {
   const data = await req.json();
 
 
-  const response = await db.consultorio.update({
+  const response = await db.destinoAtendimento.update({
     data: data, where: { id: data.id }
   }).then(() => {
 

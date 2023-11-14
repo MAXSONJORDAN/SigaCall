@@ -12,7 +12,7 @@ export const Shotcut = (props: IProps) => {
 
 
     return (<>
-        <Box borderRadius={10} bg={'purple.500'} h={'70px'} w={'99%'} cursor={'pointer'} onClick={() => props.onClick ? props.onClick() : null}>
+        <Box _hover={{backgroundColor:'purple.300'}}  borderRadius={10} bg={'purple.500'} h={'70px'} w={'99%'} cursor={'pointer'} onClick={() => props.onClick ? props.onClick() : null}>
             <HStack padding={2} color={'white'}>
                 <VStack textAlign={'left'}>
                     <Tooltip label={props.title}>

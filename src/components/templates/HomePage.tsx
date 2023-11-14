@@ -7,10 +7,18 @@ import { cumprimentoDoDia, formatarDataHora } from '@/utils';
 import { BoxNums } from '../molecules/BoxNums';
 import { Shotcut } from '../atoms/Shotcut';
 import { Chamada } from '../atoms/Chamada';
+import { PacienteInput } from '../molecules/PacienteInput';
+import { DestinoSelector } from '../molecules/DestinoSelector';
+import { AlertaInput } from '../molecules/AlertaInput';
 
 export function HomePage() {
 
     const [dataFormatada, setDataFormatada] = useState("");
+    const [destinoAtendimento, setDestinoAtendimento] = useState("");
+
+    const handleChangeDestinoAtendimento = (value) => {
+        console.log("Destino Atendimento", value)
+    }
 
     useEffect(() => {
         let timeRefresh = setInterval(() => {
@@ -78,79 +86,24 @@ export function HomePage() {
                                     },
                                 }} bg={'white'} shadow={'xl'} height={'100%'} borderRadius={10} overflowX={'scroll'} padding={2} className="scrollbar">
 
-                                        <Chamada nome='Exemple Name Person Called' sala='Sala 2' hora='10:20 pm' />
-                                        <Chamada nome='Exemple Name Person Called' sala='Sala 2' hora='10:20 pm' />
-                                        <Chamada nome='Exemple Name Person Called' sala='Sala 2' hora='10:20 pm' />
-                                        <Chamada nome='Exemple Name Person Called' sala='Sala 2' hora='10:20 pm' />
-                                        <Chamada nome='Exemple Name Person Called' sala='Sala 2' hora='10:20 pm' />
-                                        <Chamada nome='Exemple Name Person Called' sala='Sala 2' hora='10:20 pm' />
-                                        <Chamada nome='Exemple Name Person Called' sala='Sala 2' hora='10:20 pm' />
-                                        <Chamada nome='Exemple Name Person Called' sala='Sala 2' hora='10:20 pm' />
-                                        <Chamada nome='Exemple Name Person Called' sala='Sala 2' hora='10:20 pm' />
-                                        <Chamada nome='Exemple Name Person Called' sala='Sala 2' hora='10:20 pm' />
-    
+                                    <Chamada nome='Exemple Name Person Called' sala='Sala 2' hora='10:20 pm' />
+                                    <Chamada nome='Exemple Name Person Called' sala='Sala 2' hora='10:20 pm' />
+                                    <Chamada nome='Exemple Name Person Called' sala='Sala 2' hora='10:20 pm' />
+                                    <Chamada nome='Exemple Name Person Called' sala='Sala 2' hora='10:20 pm' />
+                                    <Chamada nome='Exemple Name Person Called' sala='Sala 2' hora='10:20 pm' />
+                                    <Chamada nome='Exemple Name Person Called' sala='Sala 2' hora='10:20 pm' />
+                                    <Chamada nome='Exemple Name Person Called' sala='Sala 2' hora='10:20 pm' />
+                                    <Chamada nome='Exemple Name Person Called' sala='Sala 2' hora='10:20 pm' />
+                                    <Chamada nome='Exemple Name Person Called' sala='Sala 2' hora='10:20 pm' />
+                                    <Chamada nome='Exemple Name Person Called' sala='Sala 2' hora='10:20 pm' />
+
                                 </VStack>
                             </Flex>
                             <Flex flex={1} flexDirection={'column'} padding={4}>
-                                <Heading size={'md'}>Painel</Heading>
-                                <Flex bg={'white'} borderRadius={10} w={'100%'} flexDirection={'column'} padding={2}>
-                                    <Flex flexDirection={'column'}>
-                                        <FormControl>
-                                            <FormLabel>Paciente</FormLabel>
-                                            <Input size={'sm'} type='text' placeholder='Nome do paciente que deseja chamar.' />
-                                            {/* <FormHelperText>We'll never share your email.</FormHelperText> */}
-                                        </FormControl>
-                                        <Flex mt={2}>
-                                            <Box flex={1} />
-                                            <Button size={'sm'}>
-                                                Chamar
-                                            </Button>
-                                        </Flex>
-                                    </Flex>
-                                </Flex>
-
-                                <Flex bg={'white'} borderRadius={10} mt={4} w={'100%'} flexDirection={'column'} padding={2}>
-                                    <Flex flexDirection={'row'}>
-                                        <FormControl id="tratamentoId" size={'sm'}>
-                                            <FormLabel>Sala de atendimento</FormLabel>
-                                            <Select
-                                                name="tratamentoId"
-                                                disabled={true}
-                                                size={'sm'}
-                                            // value={usuario.tratamentoId}
-                                            // onChange={handleChange}
-                                            >
-                                                {/* {tratamentos.map((item: any) => {
-                                                    return <option value={item.id}>{item.identificador}</option>
-                                                })} */}
-                                                <option value={'1'}>Consultorio 1</option>
-                                            </Select>
-                                        </FormControl>
-                                        <Flex mt={2}>
-                                            <Box flex={1} />
-                                            <Button ml={2} mt={6} size={'sm'}>
-                                                Alterar
-                                            </Button>
-                                        </Flex>
-                                    </Flex>
-                                </Flex>
-
-                                <Flex bg={'white'} borderRadius={10} mt={4} w={'100%'} flexDirection={'column'} padding={2}>
-                                    <Flex flexDirection={'column'}>
-                                        <FormControl>
-                                            <FormLabel>Alerta</FormLabel>
-                                            <Textarea size={'sm'} placeholder='Nome do paciente que deseja chamar.' />
-                                            {/* <FormHelperText>We'll never share your email.</FormHelperText> */}
-                                        </FormControl>
-                                        <Flex mt={2}>
-                                            <Box flex={1} />
-                                            <Button size={'sm'}>
-                                                Enviar alerta
-                                            </Button>
-                                        </Flex>
-                                    </Flex>
-                                </Flex>
-
+                                <Heading size={'md'}>Painel de Comando</Heading>
+                                <PacienteInput />
+                                <DestinoSelector onChange={handleChangeDestinoAtendimento} destino={destinoAtendimento} />
+                                <AlertaInput />
                             </Flex>
                         </Flex>
 
@@ -164,15 +117,15 @@ export function HomePage() {
                             Ações
                         </Heading>
                         <VStack shadow={'xl'} borderRadius={10} h={'calc(100vh - 172px)'} overflowX={'scroll'} sx={{
-                                    '&::-webkit-scrollbar': {
-                                        width: '10px',
-                                        borderRadius: '8px',
-                                        backgroundColor: `rgba(0, 0, 0, 0.05)`,
-                                    },
-                                    '&::-webkit-scrollbar-thumb': {
-                                        backgroundColor: `rgba(0, 0, 0, 0.05)`,
-                                    },
-                                }} >
+                            '&::-webkit-scrollbar': {
+                                width: '10px',
+                                borderRadius: '8px',
+                                backgroundColor: `rgba(0, 0, 0, 0.05)`,
+                            },
+                            '&::-webkit-scrollbar-thumb': {
+                                backgroundColor: `rgba(0, 0, 0, 0.05)`,
+                            },
+                        }} >
                             <Shotcut title='Exemle button' description='Exemple text thats will be speaked by narrator.' />
                             <Shotcut title='Exemle button' description='Exemple text thats will be speaked by narrator.' />
                             <Shotcut title='Exemle button' description='Exemple text thats will be speaked by narrator.' />

@@ -37,7 +37,7 @@ model Tratamento {
   User          User[]
 }
 
-model Consultorio {
+model DestinoAtendimento {
   id            Int     @id @default(autoincrement())
   identificador String  @unique
   pronuncia     String?
