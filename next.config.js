@@ -21,6 +21,9 @@ if (!process.env.SOCKETURL) {
 
 
 const nextConfig = {
+  experimental:{
+    serverActions: true,
+  }
   // async rewrites() {
   //   return [
   //     {

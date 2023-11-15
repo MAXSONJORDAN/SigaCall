@@ -1,7 +1,18 @@
 'use client'
-import { Box, Button, Center, FormControl, HStack, Heading, Input, Link, Stack, Text, VStack, FormLabel } from '@chakra-ui/react'
+import { Box, Button, Center, FormControl, HStack, Heading, Input, Link, Stack, Text, VStack, FormLabel, useToast } from '@chakra-ui/react'
+import axios from 'axios';
+import { useRouter } from 'next/navigation';
+import { useState } from 'react'
 
 export function LoginForm() {
+
+    const [email, setEmail] = useState("");
+    const [senha, setSenha] = useState("");
+
+    const toast = useToast({ position: 'top', isClosable: true });
+    const router = useRouter();
+
+
     return (
         <Box height={'103%'} mt={'-1%'} flex={1} padding={10} borderRightRadius={'xl'} borderRadius={['xl', 'xl', 'none']} bgColor={'white'} shadow={'2xl'}>
             <Center w="100%" h={'100%'}>
@@ -18,24 +29,36 @@ export function LoginForm() {
                     </Heading>
 
                     <VStack spacing={3} mt="5">
-                        <FormControl>
-                            <FormLabel>Email ID</FormLabel>
-                            <Input />
-                        </FormControl>
-                        <FormControl>
-                            <FormLabel>Password</FormLabel>
-                            <Input type="password" />
-                            {/* <Link _text={{
+                        <form onSubmit={(ev) => {
+                            ev.preventDefault();
+                            axios.post("/api/auth", { email, senha }).then(axiosResponse => {
+                                const data = axiosResponse.data;
+                                window.location.href = "/admin";
+                                toast({ title: "Sucesso!", description: data.message, status: "success" })
+                            }).catch(err => {
+                                const data = err.response.data;
+                                toast({ title: "Falha!", description: data.message, status: "error" })
+                            })
+                        }}>
+                            <FormControl>
+                                <FormLabel>Email ID</FormLabel>
+                                <Input value={email} onChange={(ev) => { setEmail(ev.target.value) }} />
+                            </FormControl>
+                            <FormControl>
+                                <FormLabel>Password</FormLabel>
+                                <Input type="password" value={senha} onChange={(ev) => { setSenha(ev.target.value) }} />
+                                {/* <Link _text={{
                                 fontSize: "xs",
                                 fontWeight: "500",
                                 color: "indigo.500"
                             }} alignSelf="flex-end" mt="1">
                                 Forget Password?
                             </Link> */}
-                        </FormControl>
-                        <Button mt="2" colorScheme="purple">
-                            Login
-                        </Button>
+                            </FormControl>
+                            <Button mt="2" colorScheme="purple" type='submit'>
+                                Login
+                            </Button>
+                        </form>
                         <HStack mt="6" justifyContent="center">
                             {/* <Text fontSize="sm" color="coolGray.600" _dark={{
                                 color: "warmGray.200"

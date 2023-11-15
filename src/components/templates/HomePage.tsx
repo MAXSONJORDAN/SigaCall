@@ -21,6 +21,7 @@ type IProps = {
     destinos: DestinoAtendimento[],
     shotcuts: Shotcuts[],
     socketUrl: any
+    user?: any
 }
 export function HomePage(props: IProps) {
 
@@ -167,10 +168,10 @@ export function HomePage(props: IProps) {
 
                                     <Box>
                                         <Heading size={'lg'} color={'white'}>
-                                            {saudacaoDia()}, Dr. Susano
+                                            {saudacaoDia()}, {props.user.nomeTratamento}
                                         </Heading>
                                         <Text color={'white'}>
-                                            {cumprimentoDoDia()}
+                                            {cumprimentoDoDia()}!
                                         </Text>
                                     </Box>
 
