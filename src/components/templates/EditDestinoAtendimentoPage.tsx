@@ -105,7 +105,7 @@ export function EditDestinosAtendimentoPage(props: IProps) {
                                 onChange={handleChange}
                             />
                         </FormControl>
-                        <Button type="submit" colorScheme="purple">
+                        <Button type="submit" colorScheme="brand">
                             {editMode ? 'Alterar' : 'Cadastrar'}
                         </Button>
                     </VStack>

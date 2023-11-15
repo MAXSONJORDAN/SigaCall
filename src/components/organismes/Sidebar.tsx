@@ -20,7 +20,7 @@ export function Sidebar({ children, token, user }: any) {
     return !token ? null : (
         <HStack height={'100vh'} paddingY={4} bg={'gray.100'}>
 
-            <VStack height={'100%'} spacing={5} bgColor={'purple.500'} padding={3} width={'60px'} ml={5} borderRadius={'2xl'}>
+            <VStack height={'100%'} spacing={5} bgColor={'brand.500'} padding={3} width={'60px'} ml={5} borderRadius={'2xl'}>
                 <Image src={'/img/logo-branca-v.png'} height={'74px'} width={'auto'} alt='logo' />
                 <VStack flex={1} justifyContent={'center'} spacing={5}>
                     <SidebarButton label='Inicio' path='/admin' icon={'MdHome'} />

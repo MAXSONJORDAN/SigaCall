@@ -135,7 +135,7 @@ export function EditShotcutsPage(props: IProps) {
                                 <Icon boxSize={'8'} as={icons[shotcut.icone]} />
                             </Center>
                         </HStack>
-                        <Button type="submit" colorScheme="purple">
+                        <Button type="submit" colorScheme="brand">
                             {editMode ? 'Alterar' : 'Cadastrar'}
                         </Button>
                     </VStack>

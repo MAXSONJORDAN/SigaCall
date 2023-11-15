@@ -103,7 +103,7 @@ export const DestinoSelector = (props: IProps) => {
                 </FormControl>
                 <Flex mt={2}>
                     <Box flex={1} />
-                    <Button ml={2} mt={6} size={'sm'}
+                    <Button ml={2} mt={6} size={'sm'} colorScheme="brand"
                         onClick={() => {
                             if (!editMode) {
                                 setEditMod(true);

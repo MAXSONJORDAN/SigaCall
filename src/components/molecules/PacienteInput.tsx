@@ -30,7 +30,7 @@ export const PacienteInput = (props: IProps) => {
             </FormControl>
             <Flex mt={2}>
                 <Box flex={1} />
-                <Button disabled={chamando} size={'sm'} onClick={() => { props.onCaller(inputText); setInputText("") }}>
+                <Button colorScheme={chamando?'gray':"brand"} color={chamando?'gray.500':'white'} disabled={chamando} size={'sm'} onClick={() => { props.onCaller(inputText); setInputText("") }}>
                     Chamar
                 </Button>
             </Flex>

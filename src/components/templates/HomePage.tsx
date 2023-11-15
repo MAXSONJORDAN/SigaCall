@@ -153,12 +153,12 @@ export function HomePage(props: IProps) {
 
                     <Flex flexDirection={'column'} width={"calc(70vw - 80px)"} >
 
-                        <Box padding={3} bgColor={'purple.500'} borderRadius={'2xl'} height={'150px'} >
+                        <Box padding={3} bgColor={'white'} borderRadius={'2xl'} height={'150px'} borderBottomColor={'brand.500'} borderBottomWidth={'medium'} borderBottomRadius={'2xl'} shadow={'base'}>
                             <HStack height={'100%'}>
                                 <Flex height={'100%'} flex={2} flexDirection={'column'}>
 
                                     <Box flex={1}>
-                                        <HStack width={"230px"} bgColor={'purple.400'} borderRadius={'lg'} justifyContent={'center'} padding={1}>
+                                        <HStack width={"230px"} bgColor={'brand.400'} borderRadius={'lg'} justifyContent={'center'} padding={1}>
                                             <Icon size='4xl' color={'white'} as={MdCalendarMonth} />
                                             <Text color={'white'} fontSize={'sm'}>
                                                 {dataFormatada}
@@ -167,10 +167,10 @@ export function HomePage(props: IProps) {
                                     </Box>
 
                                     <Box>
-                                        <Heading size={'lg'} color={'white'}>
+                                        <Heading size={'lg'} color={'brand.500'}>
                                             {saudacaoDia()}, {props.user.nomeTratamento}
                                         </Heading>
-                                        <Text color={'white'}>
+                                        <Text color={'gray.700'}>
                                             {cumprimentoDoDia()}!
                                         </Text>
                                     </Box>

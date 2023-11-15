@@ -20,7 +20,7 @@ export function UsersPage() {
 
             const data = axiosResult.data;
             data.map((user: any) => {
-                user.actions = (<Button colorScheme={user.id === 1 ? 'gray' : 'purple'}
+                user.actions = (<Button colorScheme={user.id === 1 ? 'gray' : 'brand'}
                     onClick={() => {
                         if (user.id !== 1) { router.push(`users/editar/${user.id}`) }
                     }}
@@ -41,7 +41,7 @@ export function UsersPage() {
                             toast({ title: 'Ops!', description: data?.message ?? "Erro desconhecido!", status: 'error' })
                         });
                     }}
-                    colorScheme='purple'></Checkbox>)
+                    colorScheme='brand'></Checkbox>)
             })
 
             console.log(data);
@@ -88,7 +88,7 @@ export function UsersPage() {
                     </InputGroup>
                     <HStack spacing={2} ml={2}>
                         <Link href={'users/novo'}>
-                            <Button colorScheme='purple' rightIcon={<MdPersonAdd />}>Novo</Button>
+                            <Button colorScheme='brand' rightIcon={<MdPersonAdd />}>Novo</Button>
                         </Link>
                     </HStack>
                 </Flex>

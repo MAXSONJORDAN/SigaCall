@@ -20,7 +20,7 @@ export const AlertaInput = (props: IProps) => {
             </FormControl>
             <Flex mt={2}>
                 <Box flex={1} />
-                <Button disabled={chamando} size={'sm'} onClick={() => {
+                <Button disabled={chamando} colorScheme={chamando?'gray':"brand"} color={chamando?'gray.500':'white'} size={'sm'} onClick={() => {
                     if (props.onClick) {
                         props.onClick(value)
                         setValue("");

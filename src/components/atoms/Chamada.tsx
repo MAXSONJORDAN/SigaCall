@@ -37,7 +37,7 @@ export const Chamada = (props: IProps) => {
                         aria-label="repetir"
                         icon={<Icon boxSize={'6'} as={icons['MdRefresh']} />}
                         variant={'ghost'}
-                        colorScheme={comunicando?"gray":"purple"}
+                        colorScheme={comunicando?"gray":"brand"}
                         onClick={() => {
                             if (props.onClick && props.nome && props.destino && !comunicando)
                                 props.onClick(props.nome, props.destino)

@@ -21,7 +21,7 @@ export function TratamentosPage() {
             const data = axiosResponse.data;
 
             data.map((tratamento: any) => {
-                tratamento.actions = (<Button colorScheme='purple'
+                tratamento.actions = (<Button colorScheme='brand'
                     onClick={() => {
                         router.push(`tratamentos/editar/${tratamento.id}`)
                     }}
@@ -73,7 +73,7 @@ export function TratamentosPage() {
                     <HStack spacing={2} ml={2}>
                         {/* <Button ml={2}>Buscar</Button> */}
                         <Link href={'tratamentos/novo'}>
-                            <Button colorScheme='purple' rightIcon={<MdPersonAdd />}>Novo</Button>
+                            <Button colorScheme='brand' rightIcon={<MdPersonAdd />}>Novo</Button>
                         </Link>
                     </HStack>
                 </Flex>

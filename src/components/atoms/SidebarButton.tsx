@@ -27,8 +27,8 @@ export const SidebarButton = (props: ISidebarButtonProps) => {
             minH={'40px'}
             borderRadius={'lg'}
             {...props}
-            bgColor={props.isActive || props.path && props.path === path ? 'purple.400' : ''}
-            _hover={{ bgColor: 'purple.400' }}>
+            bgColor={props.isActive || props.path && props.path === path ? 'brand.400' : ''}
+            _hover={{ bgColor: 'brand.400' }}>
             <Center paddingTop={'12px'} pb={'12px'}>
                 <Image src={props.imageiconsrc} width={'22px'} height={'16px'} />
             </Center>
@@ -37,12 +37,12 @@ export const SidebarButton = (props: ISidebarButtonProps) => {
             aria-label=""
             borderRadius={'lg'}
             {...props}
-            bgColor={props.isActive || props.path && props.path === path ? 'purple.400' : ''}
+            bgColor={props.isActive || props.path && props.path === path ? 'brand.400' : ''}
             icon={props.imageiconsrc ?
                 <></> :
                 <IconComp color='white' />}
             variant={'ghost'}
-            _hover={{ bgColor: 'purple.400' }}>
+            _hover={{ bgColor: 'brand.400' }}>
         </IconButton>
 
     const CustomButtomT = (

@@ -22,7 +22,7 @@ export function DestinosAtendimentoPage() {
             const data = axiosResponse.data;
 
             data.map((consultorio: any) => {
-                consultorio.actions = (<Button colorScheme='purple'
+                consultorio.actions = (<Button colorScheme='brand'
                     onClick={() => {
                         router.push(`destinos/editar/${consultorio.id}`)
                     }}
@@ -68,7 +68,7 @@ export function DestinosAtendimentoPage() {
                     </InputGroup>
                     <HStack spacing={2} ml={2}>
                         <Link href={'destinos/novo'}>
-                            <Button colorScheme='purple' rightIcon={<MdPersonAdd />}>Novo</Button>
+                            <Button colorScheme='brand' rightIcon={<MdPersonAdd />}>Novo</Button>
                         </Link>
                     </HStack>
                 </Flex>

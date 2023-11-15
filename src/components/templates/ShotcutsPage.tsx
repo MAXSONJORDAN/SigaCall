@@ -23,7 +23,7 @@ export function ShotcutsPage() {
             const data = axiosResponse.data;
 
             data.map((shotcuts: any) => {
-                shotcuts.actions = (<Button colorScheme='purple'
+                shotcuts.actions = (<Button colorScheme='brand'
                     onClick={() => {
                         router.push(`shotcuts/editar/${shotcuts.id}`)
                     }}
@@ -72,7 +72,7 @@ export function ShotcutsPage() {
                     </InputGroup>
                     <HStack spacing={2} ml={2}>
                         <Link href={'shotcuts/novo'}>
-                            <Button colorScheme='purple' rightIcon={<MdPersonAdd />}>Novo</Button>
+                            <Button colorScheme='brand' rightIcon={<MdPersonAdd />}>Novo</Button>
                         </Link>
                     </HStack>
                 </Flex>

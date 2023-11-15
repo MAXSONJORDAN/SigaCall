@@ -55,7 +55,7 @@ export function LoginForm() {
                                 Forget Password?
                             </Link> */}
                             </FormControl>
-                            <Button mt="2" colorScheme="purple" type='submit'>
+                            <Button mt="2" colorScheme="brand" type='submit'>
                                 Login
                             </Button>
                         </form>
