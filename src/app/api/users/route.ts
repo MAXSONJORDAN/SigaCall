@@ -14,7 +14,7 @@ export async function GET(req: NextRequest) {
   // Check if the database instance has been initialized
   revalidatePath(req.nextUrl.basePath)
 
-  console.log(req.nextUrl.basePath)
+  
 
   // await db.exec("insert into items ('name','description','img') values('"+req.nextUrl.searchParams.get("id")+"','teste','teste.img')")
 
@@ -39,11 +39,10 @@ export async function POST(req: NextRequest) {
 
   revalidatePath(req.nextUrl.basePath)
   const data = await req.json();
-  console.log("data", data);
   // await db.exec("insert into items ('name','description','img') values('"+req.nextUrl.searchParams.get("id")+"','teste','teste.img')")
 
   // Perform a database query to retrieve all items from the "items" table
-  console.log("antes")
+
   await db.user.create({
     data: {
       email: data.email,
@@ -62,7 +61,6 @@ export async function POST(req: NextRequest) {
     });
   })
 
-  console.log("depois")
 
   // const items = await db.user.findMany();
 
@@ -81,7 +79,7 @@ export async function PATCH(req: NextRequest) {
   // await db.exec("insert into items ('name','description','img') values('"+req.nextUrl.searchParams.get("id")+"','teste','teste.img')")
 
   // Perform a database query to retrieve all items from the "items" table
-  console.log("antes")
+
   const novaData: any = {
     id: parseInt(data.id),
     email: data.email,
@@ -91,7 +89,6 @@ export async function PATCH(req: NextRequest) {
     roleId: parseInt(data.roleId)
   }
 
-  console.log("Nova data", novaData)
 
   if (data.senha) {
     novaData['senha'] = createHash('sha256').update(data.senha).digest('hex')
@@ -109,7 +106,6 @@ export async function PATCH(req: NextRequest) {
     });
   })
 
-  console.log("Chegou aqui");
   // const items = await db.user.findMany();
 
   // Return the items as a JSON response with status 200
@@ -122,7 +118,6 @@ export async function PATCH(req: NextRequest) {
 export async function PUT(req: NextRequest) {
   revalidatePath(req.nextUrl.basePath)
   const data = await req.json();
-  console.log("data put", data);
 
   const response = await db.user.update({ data: { isActive: data.status }, where: { id: data.id } }).then(() => {
     return new Response(JSON.stringify({ message: "Status alterado!" }), {

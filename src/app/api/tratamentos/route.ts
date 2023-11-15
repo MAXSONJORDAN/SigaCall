@@ -22,7 +22,7 @@ export async function GET(req: NextRequest) {
   //   });
   // }
 
-  console.log(req.nextUrl.basePath)
+  
 
   // await db.exec("insert into items ('name','description','img') values('"+req.nextUrl.searchParams.get("id")+"','teste','teste.img')")
 

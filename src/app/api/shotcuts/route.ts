@@ -14,7 +14,7 @@ export async function GET(req: NextRequest) {
   // Check if the database instance has been initialized
   revalidatePath(req.nextUrl.basePath)
 
-  console.log(req.nextUrl.basePath)
+  
 
   // await db.exec("insert into items ('name','description','img') values('"+req.nextUrl.searchParams.get("id")+"','teste','teste.img')")
 

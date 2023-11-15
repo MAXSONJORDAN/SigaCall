@@ -4,7 +4,7 @@ import { cookies } from "next/headers";
 import jwt from 'jsonwebtoken';
 
 export default async function Home(props) {
-  console.log("props aqui", props)
+  
   const destinosAtendimento = await db.destinoAtendimento.findMany();
   const shotcuts = await db.shotcuts.findMany();
 

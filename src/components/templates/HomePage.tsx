@@ -36,7 +36,7 @@ export function HomePage(props: IProps) {
     const toast = useToast({ position: 'top', isClosable: true });
 
     const refreshPacientes = () => {
-        console.log("buscando pacientes");
+
         axios.get("/api/chamadas/pacientes").then((axiosResponse) => {
             const data = axiosResponse.data;
             setPacientes(data);
@@ -46,7 +46,7 @@ export function HomePage(props: IProps) {
     }
 
     const refreshAlertas = () => {
-        console.log("buscando pacientes");
+    
         axios.get("/api/chamadas/alertas").then((axiosResponse) => {
             const data = axiosResponse.data;
             setAlertas(data);

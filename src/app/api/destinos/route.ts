@@ -7,7 +7,7 @@ export async function GET(req: NextRequest) {
   // Check if the database instance has been initialized
   revalidatePath(req.nextUrl.basePath)
 
-  console.log(req.nextUrl.basePath)
+
   let items: any[] = await db.destinoAtendimento.findMany();
 
 

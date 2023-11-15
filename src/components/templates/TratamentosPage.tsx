@@ -28,7 +28,6 @@ export function TratamentosPage() {
                 >Editar</Button>)
             })
 
-            console.log("data", data)
             setTratamentos(data);
         })
 

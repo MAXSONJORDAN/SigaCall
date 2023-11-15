@@ -11,13 +11,13 @@ export function Sidebar({ children, token, user }: any) {
     const router = useRouter();
 
     if (!token) {
-        console.log("caiu aqui");
+
         router.push("/");
     }
 
 
 
-    return !token ? null : (
+    return !token ? <div></div> : (
         <HStack height={'100vh'} paddingY={4} bg={'gray.100'}>
 
             <VStack height={'100%'} spacing={5} bgColor={'brand.500'} padding={3} width={'60px'} ml={5} borderRadius={'2xl'}>

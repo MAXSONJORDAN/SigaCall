@@ -2,13 +2,17 @@
   "name": "servidor-chamadas",
   "version": "0.1.0",
   "private": true,
+  "main": "main.js",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start",
+    "start": "electron-forge start",
     "lint": "next lint",
+    "server": "electron .",
     "prismaMigrate": "cd src/db && prisma migrate dev --name init",
-    "prismaFormat": "cd src/db && prisma format"
+    "prismaFormat": "cd src/db && prisma format",
+    "package": "electron-forge package",
+    "make": "electron-forge make"
   },
   "dependencies": {
     "@chakra-ui/icons": "^2.1.1",
@@ -27,6 +31,8 @@
     "bcrypt": "^5.1.1",
     "better-sqlite3": "^9.0.0",
     "bufferutil": "^4.0.8",
+    "electron-squirrel-startup": "^1.0.0",
+    "electron-tray-window": "^1.2.7",
     "equality-comparison": "^1.0.8",
     "express": "^4.18.2",
     "framer-motion": "^10.16.4",
@@ -42,10 +48,17 @@
     "utf-8-validate": "^6.0.3"
   },
   "devDependencies": {
+    "@electron-forge/cli": "^6.4.2",
+    "@electron-forge/maker-deb": "^6.4.2",
+    "@electron-forge/maker-rpm": "^6.4.2",
+    "@electron-forge/maker-squirrel": "^6.4.2",
+    "@electron-forge/maker-zip": "^6.4.2",
+    "@electron-forge/plugin-auto-unpack-natives": "^6.4.2",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
     "autoprefixer": "^10",
+    "electron": "^27.1.0",
     "eslint": "^8",
     "eslint-config-next": "13.5.4",
     "next-compose-plugins": "^2.2.1",
