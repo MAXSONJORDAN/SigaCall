@@ -121,10 +121,10 @@ export function HomePage(props: IProps) {
         }
 
 
-        socket.on("chamar-paciente", onChamarPaciente);
+        socket.on("chamar", onChamarPaciente);
         socket.on("alertar", onAlertar);
         return () => {
-            socket.off("chamar-paciente", onChamarPaciente);
+            socket.off("chamar", onChamarPaciente);
             socket.off("alertar", onAlertar);
             socket.disconnect();
 

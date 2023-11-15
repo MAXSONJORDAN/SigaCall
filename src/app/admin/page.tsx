@@ -15,3 +15,5 @@ export default async function Home(props) {
     <><HomePage user={user} destinos={destinosAtendimento} shotcuts={shotcuts} socketUrl={process.env.SOCKETURL} /></>
   )
 }
+
+export const revalidate = 0;

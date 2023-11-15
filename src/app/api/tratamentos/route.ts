@@ -98,3 +98,5 @@ export async function POST(req: NextRequest) {
     status: 200,
   });
 }
+
+export const dynamic = 'force-dynamic'

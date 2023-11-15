@@ -30,3 +30,5 @@ export async function POST(req: NextRequest) {
 
     return response;
 }
+
+export const dynamic = 'force-dynamic'

@@ -139,3 +139,6 @@ export async function PUT(req: NextRequest) {
   return response;
 
 }
+
+
+export const dynamic = 'force-dynamic'

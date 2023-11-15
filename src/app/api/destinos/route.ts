@@ -73,3 +73,6 @@ export async function PATCH(req: NextRequest) {
 
   return response;
 }
+
+
+export const dynamic = 'force-dynamic'

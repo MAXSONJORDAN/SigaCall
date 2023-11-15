@@ -7,6 +7,8 @@ import { db } from "@/db/connector";
 export async function POST(req: NextRequest) {
     // Check if the database instance has been initialized
     revalidatePath(req.nextUrl.basePath)
+
+
     const data = await req.json();
     const chamada = { destinoAtendimento: data.destinoAtendimento, paciente: data.paciente, userId: 1, hora: new Date() }
 
@@ -26,7 +28,10 @@ export async function POST(req: NextRequest) {
     })
 
     if (response.status === 200)
-        io.emit("chamar-paciente", chamada)
+        io.emit("chamar", chamada)
 
     return response;
 }
+
+
+export const dynamic = 'force-dynamic'
