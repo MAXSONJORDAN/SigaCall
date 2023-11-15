@@ -1,13 +1,24 @@
 const withPlugins = require("next-compose-plugins");
 /** @type {import('next').NextConfig} */
 const withFonts = require("next-fonts");
-
-const portAletoria = Math.floor((new Date().getTime() % 10000) + 1000);
 const app = require('./src/integrations/socket.io/index.js');
-app.listen(portAletoria)
-console.log("listening socket on http://127.0.0.1:" + portAletoria)
 
-global.socketUrl = "127.0.0.1:" + portAletoria;
+if (!process.env.SOCKETURL) {
+  const port = 3001//Math.floor((new Date().getTime() % 10000) + 1000);
+  const urlSock = "127.0.0.1:" + port;
+  process.env.SOCKETURL = urlSock;
+
+  app.listen(port)
+  console.log("listening socket on http://" + urlSock)
+}else{
+  const port = 3002//Math.floor((new Date().getTime() % 10000) + 1000);
+  const urlSock = "127.0.0.1:" + port;
+  process.env.SOCKETURL = urlSock;
+
+  app.listen(port)
+  console.log("listening socket on http://" + urlSock)
+}
+
 
 const nextConfig = {
   // async rewrites() {
@@ -19,9 +30,6 @@ const nextConfig = {
   //   ]
   // }
 };
-
-console.log("Global antes",global.socketUrl)
-
 
 
 module.exports = withPlugins(

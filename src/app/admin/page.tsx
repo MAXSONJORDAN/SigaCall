@@ -5,8 +5,9 @@ export default async function Home() {
 
   const destinosAtendimento = await db.destinoAtendimento.findMany();
   const shotcuts = await db.shotcuts.findMany();
-  const socketUrl = global.socketUrl;
+
+
   return (
-    <><HomePage destinos={destinosAtendimento} shotcuts={shotcuts} socketUrl={socketUrl}/></>
+    <><HomePage destinos={destinosAtendimento} shotcuts={shotcuts} socketUrl={process.env.SOCKETURL} /></>
   )
 }

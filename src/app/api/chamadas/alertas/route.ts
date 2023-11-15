@@ -13,7 +13,7 @@ export async function GET(req: NextRequest) {
     dataAtual.setUTCHours(0, 0, 0, 0);
 
     // Perform a database query to retrieve all items from the "items" table
-    const items = await db.chamadas.findMany({
+    const items = await db.alertas.findMany({
         where: {
             hora: {
                 gt: dataAtual.toISOString()
@@ -31,3 +31,5 @@ export async function GET(req: NextRequest) {
         status: 200,
     });
 }
+
+export const revalidate = 0;

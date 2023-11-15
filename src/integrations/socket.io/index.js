@@ -2,7 +2,7 @@
 exports.listen = (port) => {
     const { createServer } = require("http");
     const { Server } = require("socket.io");
-db
+
 
     const httpServer = createServer();
     const io = new Server({
@@ -12,7 +12,8 @@ db
     });
 
     io.attach(httpServer);
-    global.socket = io;
+    global.io = io;
+
 
     io.on("connection", (socket) => {
         console.log("Novo cliente conectado");
@@ -21,7 +22,7 @@ db
             console.log("Chamando:", data);
             if (data.tipo === 0) {
                 // em vez de acessar ao BANCO diretamente, é necessário que eu aponte um rota que adicione o paciente ao banco.
-                db.chamadas.create({ data: { userId: chamadas.userId, paciente: data.paciente, destinoAtendimento: data.destinoAtendimento, hora: new Date() } })
+
             } else {
                 db.alertas.create({ data: { userId: chamadas.userId, identificador: data.identificador, mensagem: data.mensagem, hora: new Date() } })
             }
