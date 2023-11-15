@@ -48,7 +48,7 @@ export const DestinoSelector = (props: IProps) => {
                 initialFocusRef={initialRef}
                 finalFocusRef={finalRef}
                 isOpen={isOpen}
-            // onClose={onClose}
+                onClose={() => { }}
             >
                 <ModalOverlay />
                 <ModalContent>
@@ -117,6 +117,6 @@ export const DestinoSelector = (props: IProps) => {
                     </Button>
                 </Flex>
             </Flex>
-        </Flex>
+        </Flex >
     )
 }
