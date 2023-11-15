@@ -18,18 +18,43 @@ export const DestinoSelector = (props: IProps) => {
     const finalRef = useRef(null)
 
     const handleSave = (val) => {
-        setValue(val)
-        if (window) {
-            window.localStorage.setItem("destino", val)
+        if (val) {
+            setValue(val)
+            props.onChange(val)
+            if (window) {
+                window.localStorage.setItem("destino", val)
+            }
+        } else {
+            if (props.destinos && props.destinos.length > 0) {
+                const destino = props.destinos[0].identificador;
+                setValue(destino);
+                props.onChange(destino);
+                window.localStorage.setItem("destino", destino)
+            }
+
         }
+
     }
 
     const handleLoad = () => {
         if (window) {
             const destino = window.localStorage.getItem("destino")
             if (destino) {
-                setValue(destino);
-                props.onChange(destino)
+
+                if (props.destinos && props.destinos.length > 0) {
+                    const destinos = props.destinos.filter(item => {
+                        return item.identificador === destino;
+                    })
+
+                    if (destinos.length > 0) {
+                        setValue(destino);
+                        props.onChange(destino)
+                    } else {
+                        onOpen();
+                    }
+                }
+
+
             } else {
                 onOpen();
             }
