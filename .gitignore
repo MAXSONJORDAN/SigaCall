@@ -1,3 +1,4 @@
+src/db/prisma/dev.db
 # Logs
 logs
 *.log
