@@ -1,36 +1,51 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# SigaCall Server
 
-## Getting Started
+Este é o repositório oficial do projeto SigaCall Server, um aplicativo desenvolvido por Maxson Araújo para servir como servidor e front end de um painel de guichê. O SigaCall Server tem a funcionalidade de chamar senhas ou nomes, proporcionando uma solução eficiente para o gerenciamento de atendimentos.
 
-First, run the development server:
+## Pré-requisitos
+
+Antes de iniciar, certifique-se de ter o Docker instalado em seu ambiente de desenvolvimento. Você pode baixá-lo [aqui](https://www.docker.com/get-started).
+
+## Instalação
+
+Para inicializar o serviço, siga os passos abaixo:
+
+1. Clone este repositório em sua máquina local:
+
+   ```bash
+   https://github.com/MAXSONJORDAN/servidor-chamadas.git
+   ```
+2. Navegue até o diretório do projeto:
+
+   ```bash
+   cd servidor-chamadas
+   ```
+3. Execute o seguinte comando para construir a imagem Docker:
+
+   ```bash
+   docker build . -t chamadas
+   ```
+
+## Executando o Serviço
+
+Após a construção da imagem, é necessário subir o container para que o servidor esteja ativo e funcionando corretamente. Utilize o seguinte comando:
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+docker run --restart always -p 80:3000 -p 3001:3001 -p 3002:3002 chamadas
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Isso iniciará o servidor SigaCall, garantindo que esteja sempre disponível, mesmo após reinicializações.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Contribuindo
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+Se você deseja contribuir para o desenvolvimento do SigaCall Server, por favor, leia nossas [diretrizes de contribuição](CONTRIBUTING.md).
 
-## Learn More
+## Autor
 
-To learn more about Next.js, take a look at the following resources:
+- Maxson Araújo
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Licença
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+Este projeto é licenciado sob a Licença MIT - consulte o arquivo [LICENSE.md](LICENSE.md) para obter detalhes.
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+Agradecemos por escolher o SigaCall Server! Se tiver alguma dúvida ou problema, não hesite em [abrir uma issue](https://github.com/seu-usuario/sigacall-server/issues).
