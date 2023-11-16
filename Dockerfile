@@ -15,7 +15,7 @@ RUN ln -fs /usr/share/zoneinfo/America/Sao_Paulo /etc/localtime && \
 
 RUN echo "America/Sao_Paulo" > /etc/timezone
 
-EXPOSE 80 443
+EXPOSE 80 443 3000 3001 3002
 
 RUN git clone https://maxsonjordan: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@github.com/MAXSONJORDAN/servidor-chamadas.git
 
