@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "electron-forge start",
+    "start":"next start",
+    "startForge": "electron-forge start",
     "lint": "next lint",
     "server": "electron .",
     "prismaMigrate": "cd src/db && prisma migrate dev --name init",
