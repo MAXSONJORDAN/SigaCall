@@ -12,7 +12,7 @@ console.log("SETUP DATA");
         create: {
             id: 1,
             name: 'Administrador'
-        }
+        },where:{id:1}
     })
 
     console.log("roles");
@@ -22,7 +22,7 @@ console.log("SETUP DATA");
         create: {
             id: 2,
             name: 'Operador'
-        }
+        },where:{id:2}
     })
 
     console.log("contando users");
