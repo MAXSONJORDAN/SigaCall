@@ -46,7 +46,7 @@ export function HomePage(props: IProps) {
     }
 
     const refreshAlertas = () => {
-    
+
         axios.get("/api/chamadas/alertas").then((axiosResponse) => {
             const data = axiosResponse.data;
             setAlertas(data);
@@ -107,7 +107,7 @@ export function HomePage(props: IProps) {
         refreshAlertas();
 
 
-        const manager = new Manager("ws://" + props.socketUrl);
+        const manager = new Manager("ws://" + props.socketUrl, { transports: ['websocket'] });
         const socket = manager.socket("/");
 
 
