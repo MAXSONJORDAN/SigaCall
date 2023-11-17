@@ -30,9 +30,6 @@ VOLUME /app/data
 
 COPY ./src/db/prisma/dev.db /app/data/dev.db
 
-# Alterando o caminho do DATABASE_URL no arquivo .env
-RUN sed -i 's|DATABASE_URL="file:./dev.db"|DATABASE_URL="file:/app/data/dev.db"|g' .env
-
 # Configurando o diretório de trabalho
 WORKDIR /servidor-chamadas/src/db/prisma
 
@@ -45,5 +42,7 @@ RUN git fetch --all
 # Configurando o diretório de trabalho
 WORKDIR /servidor-chamadas
 
+COPY ./.env.exemple.prod ./.env
+
 # Resetando, puxando as alterações, instalando dependências, construindo e iniciando o aplicativo
-CMD git reset --hard HEAD && git pull && yarn && yarn build && yarn start
+CMD git reset --hard HEAD && git pull && yarn prismaMigrate && yarn && yarn build && yarn start
