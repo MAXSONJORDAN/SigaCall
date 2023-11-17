@@ -28,7 +28,7 @@ WORKDIR /servidor-chamadas
 # Adicionando a criação de um volume e copiando o arquivo dev.db
 VOLUME /app/data
 
-RUN if [ ! -e "/app/data/dev.db" ]; then cp ./src/db/prisma/dev.db /app/data/dev.db; fi
+RUN if [ ! -e "/app/data/dev.db" ]; then cp src/db/prisma/dev.db /app/data/dev.db; fi
 
 # Configurando o diretório de trabalho
 WORKDIR /servidor-chamadas/src/db/prisma
@@ -45,4 +45,4 @@ WORKDIR /servidor-chamadas
 ENV DATABASE_URL="file:/app/data/dev.db"
 
 # Resetando, puxando as alterações, instalando dependências, construindo e iniciando o aplicativo
-CMD git reset --hard HEAD && git pull && yarn prismaMigrate && yarn setupData &&  yarn && yarn build && yarn start
+CMD git reset --hard HEAD && git pull && yarn prismaMigrate &&  yarn && yarn build && yarn start
