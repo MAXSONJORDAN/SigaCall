@@ -73,7 +73,7 @@ console.log("SETUP DATA");
     console.log("Tratamentos...");
     for (let i = 0; i < tratamentos.length; i++) {
         const tratamento = tratamentos[i];
-        await db.role.upsert({
+        await db.tratamento.upsert({
             create: tratamento, update: tratamento, where: { id: tratamento.id },
         })
     }
