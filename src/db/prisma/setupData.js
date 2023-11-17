@@ -61,9 +61,35 @@ console.log("SETUP DATA");
         }
     ]
 
+    const shotcuts = [
+        {
+            "id": 1,
+            "identificador": "Silêncio",
+            "mensagem": "Por favor, mantenha o ambiente tranquilo para o conforto de todos. Agradecemos a sua compreensão.",
+            "icone": "MdVoiceOverOff"
+        }
+    ]
+
+    const destinoAtendimento = [
+        {
+            "id": 1,
+            "identificador": "Recepção",
+            "pronuncia": "Recepção"
+        },
+        {
+            "id": 3,
+            "identificador": "Consultório 1",
+            "pronuncia": "Consultório 1"
+        }
+    ]
+
+
+
+
 
     console.log("Roles...");
     for (let i = 0; i < roles.length; i++) {
+        console.log("inserting " + i);
         const role = roles[i];
         await db.role.upsert({
             create: role, update: role, where: { id: role.id },
@@ -72,12 +98,31 @@ console.log("SETUP DATA");
 
     console.log("Tratamentos...");
     for (let i = 0; i < tratamentos.length; i++) {
+        console.log("inserting " + i);
         const tratamento = tratamentos[i];
         await db.tratamento.upsert({
             create: tratamento, update: tratamento, where: { id: tratamento.id },
         })
     }
 
+    console.log("Shotcuts...");
+    for (let i = 0; i < shotcuts.length; i++) {
+        console.log("inserting " + i);
+        const item = shotcuts[i];
+        await db.shotcuts.upsert({
+            create: item, update: item, where: { id: item.id },
+        })
+    }
+
+
+    console.log("destinoAtendimento...");
+    for (let i = 0; i < destinoAtendimento.length; i++) {
+        console.log("inserting " + i);
+        const item = destinoAtendimento[i];
+        await db.destinoAtendimento.upsert({
+            create: item, update: item, where: { id: item.id },
+        })
+    }
 
     console.log("contando users");
     const countUsers = await db.user.count();
