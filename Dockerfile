@@ -30,8 +30,6 @@ VOLUME /app/data
 
 RUN if [ ! -e "/app/data/dev.db" ]; then cp ./src/db/prisma/dev.db /app/data/dev.db; fi
 
-COPY .env.exemple.prod .env
-
 # Configurando o diretório de trabalho
 WORKDIR /servidor-chamadas/src/db/prisma
 
