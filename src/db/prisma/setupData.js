@@ -7,23 +7,26 @@ console.log("SETUP DATA");
 (async () => {
     console.log("roles");
 
-
-    await db.role.upsert({
-        create: {
+    const roles = [
+        {
             id: 1,
             name: 'Administrador'
-        },where:{id:1}
-    })
-
-    console.log("roles");
-
-
-    await db.role.upsert({
-        create: {
+        },
+        {
             id: 2,
             name: 'Operador'
-        },where:{id:2}
-    })
+        }
+    ]
+
+    
+    console.log("Roles...");
+    for (let i = 0; i < roles.length; i++) {
+        const role = roles[i];
+        await db.role.upsert({
+            create: role, update: role, where: { id: role.id },
+        })
+    }
+
 
     console.log("contando users");
     const countUsers = await db.user.count();

@@ -44,5 +44,6 @@ WORKDIR /servidor-chamadas
 
 ENV DATABASE_URL="file:/app/data/dev.db"
 
+RUN yarn setupData
 # Resetando, puxando as alterações, instalando dependências, construindo e iniciando o aplicativo
-CMD git reset --hard HEAD && git pull && yarn prismaMigrate && yarn setupData && yarn && yarn build && yarn start
+CMD git reset --hard HEAD && git pull && yarn prismaMigrate && yarn && yarn build && yarn start
