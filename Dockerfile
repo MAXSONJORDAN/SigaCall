@@ -27,4 +27,4 @@ RUN git fetch --all
 
 WORKDIR /servidor-chamadas
 
-CMD git pull && yarn && yarn build && yarn start
+CMD git pull && git merge && yarn && yarn build && yarn start
