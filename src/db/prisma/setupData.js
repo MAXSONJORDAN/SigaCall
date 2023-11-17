@@ -89,7 +89,7 @@ console.log("SETUP DATA");
 
     console.log("Roles...");
     for (let i = 0; i < roles.length; i++) {
-        console.log("inserting " + i);
+        console.log("inserting "+(i+1));
         const role = roles[i];
         await db.role.upsert({
             create: role, update: role, where: { id: role.id },
@@ -98,7 +98,7 @@ console.log("SETUP DATA");
 
     console.log("Tratamentos...");
     for (let i = 0; i < tratamentos.length; i++) {
-        console.log("inserting " + i);
+        console.log("inserting "+(i+1));
         const tratamento = tratamentos[i];
         await db.tratamento.upsert({
             create: tratamento, update: tratamento, where: { id: tratamento.id },
@@ -107,7 +107,7 @@ console.log("SETUP DATA");
 
     console.log("Shotcuts...");
     for (let i = 0; i < shotcuts.length; i++) {
-        console.log("inserting " + i);
+        console.log("inserting "+(i+1));
         const item = shotcuts[i];
         await db.shotcuts.upsert({
             create: item, update: item, where: { id: item.id },
@@ -117,7 +117,7 @@ console.log("SETUP DATA");
 
     console.log("destinoAtendimento...");
     for (let i = 0; i < destinoAtendimento.length; i++) {
-        console.log("inserting " + i);
+        console.log("inserting "+(i+1));
         const item = destinoAtendimento[i];
         await db.destinoAtendimento.upsert({
             create: item, update: item, where: { id: item.id },
