@@ -2,19 +2,24 @@ const { PrismaClient } = require('@prisma/client')
 
 const db = new PrismaClient();
 
+console.log("SETUP DATA");
 
-(async () => {
+await (async () => {
+    console.log("roles");
 
 
-    await db.role.create({
-        data: {
+    await db.role.upsert({
+        create: {
             id: 1,
             name: 'Administrador'
         }
     })
 
+    console.log("roles");
+
+
     await db.role.upsert({
-        data: {
+        create: {
             id: 2,
             name: 'Operador'
         }
