@@ -17,10 +17,19 @@ export async function POST(req: NextRequest) {
     const { email, senha } = data;
 
 
-    const user = await db.user.findUnique({ where: { email: email } }).catch((err) => {
+    const user:any = await db.user.findUnique({ where: { email: email } }).catch((err) => {
         console.error(err);
-        return null;
+        return "erro";;
     })
+
+    if (user === "erro") {
+        return new Response(JSON.stringify({ message: "Erro desconhecido!" }), {
+            headers: { "Content-Type": "application/json", 'Cache-Control': 'no-store' },
+            status: 500,
+        });
+    }
+
+    console.log(email, "Tentando autenticar.", user);
 
     const dataToken = { ...user }
     delete dataToken.senha;
@@ -34,6 +43,8 @@ export async function POST(req: NextRequest) {
             status: 401,
         });
     }
+
+   
 
     // Criar o hash da senha digitada
     const hashDigitado = createHash('sha256').update(senha).digest('hex');

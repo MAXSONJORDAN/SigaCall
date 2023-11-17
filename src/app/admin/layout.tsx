@@ -16,11 +16,14 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
 
-  const token = cookies().get("token");
-  let user:any = {nome:""};
+  let token:any = cookies().get("token");
+  let user: any = { nome: "" };
   if (token) {
     if (jwt.verify(token.value, "CB45jmph@@")) {
-       user = jwt.decode(token.value);
+      user = jwt.decode(token.value);
+    } else {
+      cookies().delete("token");
+      token = null;
     }
 
   }
