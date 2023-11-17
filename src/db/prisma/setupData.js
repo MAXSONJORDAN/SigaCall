@@ -6,14 +6,14 @@ const db = new PrismaClient();
 (async () => {
 
 
-    db.role.create({
+    await db.role.create({
         data: {
             id: 1,
             name: 'Administrador'
         }
     })
 
-    db.role.upsert({
+    await db.role.upsert({
         data: {
             id: 2,
             name: 'Operador'
@@ -25,7 +25,7 @@ const db = new PrismaClient();
     console.log("users:", countUsers);
 
     if (countUsers > 0) {
-        const user = db.user.findUnique({ where: { email: 'maxson.joran@gmail.com' } });
+        const user = await db.user.findUnique({ where: { email: 'maxson.joran@gmail.com' } });
         if (!user) {
             db.user.create({
                 data: {
@@ -38,7 +38,7 @@ const db = new PrismaClient();
             })
         }
     } else {
-        db.user.create({
+        await db.user.create({
             data: {
                 email: 'maxson.jordan@gmail.com',
                 nome: 'Maxson Jordan Matos Araújo',
