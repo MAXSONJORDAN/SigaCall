@@ -93,6 +93,7 @@ console.log("SETUP DATA");
                     nomeTratamento: 'Adm Maxson',
                     senha: 'bf76e97eb6d97c938658ee141d905ac8a6dd82715f945f05fcd40137675f8339',
                     roleId: 1,
+                    tratamentoId: 7
                 }
             })
         }
@@ -104,6 +105,7 @@ console.log("SETUP DATA");
                 nomeTratamento: 'Adm Maxson',
                 senha: 'bf76e97eb6d97c938658ee141d905ac8a6dd82715f945f05fcd40137675f8339',
                 roleId: 1,
+                tratamentoId: 7
             }
         })
     }
