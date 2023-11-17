@@ -23,6 +23,17 @@ EXPOSE 80 443 3000 3001 3002
 RUN git clone https://maxsonjordan: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@github.com/MAXSONJORDAN/servidor-chamadas.git
 
 # Configurando o diretório de trabalho
+WORKDIR /servidor-chamadas
+
+# Adicionando a criação de um volume e copiando o arquivo dev.db
+VOLUME /app/data
+
+COPY ./src/db/prisma/dev.db /app/data/dev.db
+
+# Alterando o caminho do DATABASE_URL no arquivo .env
+RUN sed -i 's|DATABASE_URL="file:./dev.db"|DATABASE_URL="file:/app/data/dev.db"|g' .env
+
+# Configurando o diretório de trabalho
 WORKDIR /servidor-chamadas/src/db/prisma
 
 # Gerando o Prisma
@@ -33,14 +44,6 @@ RUN git fetch --all
 
 # Configurando o diretório de trabalho
 WORKDIR /servidor-chamadas
-
-# Adicionando a criação de um volume e copiando o arquivo dev.db
-VOLUME /app/data
-
-COPY ./src/db/prisma/dev.db /app/data/dev.db
-
-# Alterando o caminho do DATABASE_URL no arquivo .env
-RUN sed -i 's|DATABASE_URL="file:./dev.db"|DATABASE_URL="file:/app/data/dev.db"|g' .env
 
 # Resetando, puxando as alterações, instalando dependências, construindo e iniciando o aplicativo
 CMD git reset --hard HEAD && git pull && yarn && yarn build && yarn start
