@@ -22,14 +22,14 @@ export async function POST(req: NextRequest) {
         return "erro";;
     })
 
+    console.log(email, "Tentando autenticar.", user);
+
     if (user === "erro") {
         return new Response(JSON.stringify({ message: "Erro desconhecido!" }), {
             headers: { "Content-Type": "application/json", 'Cache-Control': 'no-store' },
             status: 500,
         });
     }
-
-    console.log(email, "Tentando autenticar.", user);
 
     const dataToken = { ...user }
     delete dataToken.senha;
