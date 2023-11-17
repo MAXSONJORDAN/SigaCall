@@ -27,4 +27,8 @@ RUN git fetch --all
 
 WORKDIR /servidor-chamadas
 
-CMD git pull && yarn && yarn build && yarn start
+RUN git config --global user.email "maxson.jordan@gmail.com"
+
+RUN git config --global user.name "Maxson Araújo"
+
+CMD git commit -m 'merge' && git merge && git pull && yarn && yarn build && yarn start
