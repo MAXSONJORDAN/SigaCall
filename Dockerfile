@@ -1,5 +1,6 @@
 FROM node:18.18.2
 
+# Instalando dependências
 RUN apt-get update && apt-get install -y \
     python3 \
     git \
@@ -15,20 +16,31 @@ RUN ln -fs /usr/share/zoneinfo/America/Sao_Paulo /etc/localtime && \
 
 RUN echo "America/Sao_Paulo" > /etc/timezone
 
+# Expondo as portas
 EXPOSE 80 443 3000 3001 3002
 
+# Clonando o repositório
 RUN git clone https://maxsonjordan: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@github.com/MAXSONJORDAN/servidor-chamadas.git
 
+# Configurando o diretório de trabalho
 WORKDIR /servidor-chamadas/src/db/prisma
 
+# Gerando o Prisma
 RUN npx prisma generate
 
+# Atualizando o repositório
 RUN git fetch --all
 
+# Configurando o diretório de trabalho
 WORKDIR /servidor-chamadas
 
-RUN git config --global user.email "maxson.jordan@gmail.com"
+# Resetando, puxando as alterações, instalando dependências, construindo e iniciando o aplicativo
+CMD git reset --hard HEAD && git pull && yarn && yarn build && yarn start
 
-RUN git config --global user.name "Maxson Araújo"
+# Adicionando a criação de um volume e copiando o arquivo dev.db
+VOLUME /app/data
 
-CMD git commit -m 'merge' && git merge && git pull && yarn && yarn build && yarn start
+COPY ./src/db/prisma/dev.db /app/data/dev.db
+
+# Alterando o caminho do DATABASE_URL no arquivo .env
+RUN sed -i 's|DATABASE_URL="file:./dev.db"|DATABASE_URL="file:/app/data/dev.db"|g' .env
