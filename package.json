@@ -11,6 +11,7 @@
     "lint": "next lint",
     "server": "electron .",
     "prismaMigrate": "cd src/db && prisma migrate dev --name init",
+    "setupData": "cd src/db/prisma && node setupData.js",
     "prismaFormat": "cd src/db && prisma format",
     "prismaGenerate": "cd src/db && prisma generate",
     "package": "electron-forge package",
