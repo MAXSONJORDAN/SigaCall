@@ -4,7 +4,7 @@ const db = new PrismaClient();
 
 console.log("SETUP DATA");
 
-await (async () => {
+(async () => {
     console.log("roles");
 
 
