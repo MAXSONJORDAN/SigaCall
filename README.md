@@ -6,6 +6,26 @@ Este é o repositório oficial do projeto SigaCall Server, um aplicativo desenvo
 
 Antes de iniciar, certifique-se de ter o Docker instalado em seu ambiente de desenvolvimento. Você pode baixá-lo [aqui](https://www.docker.com/get-started).
 
+## Executando(Desenvolvimento)
+
+para Executar em modo de desenvolvimento é necessário  copiar o arquivo '.env.exemple.dev' com o nome '.env' e depois executar os comandos:
+
+```bash
+yarn
+yarn prismaGenerate
+yarn dev
+```
+
+Seu projeto irá iniciar no [http://localhost:3000](http://localhost:3000)
+
+Caso alguma mudança tenha sido feita no schema do prisma é necessário rodar as migrations:
+
+```bash
+yarn prismaMigrate
+```
+
+Depois recarregar o projeto.
+
 ## Instalação
 
 Para inicializar o serviço, siga os passos abaixo:

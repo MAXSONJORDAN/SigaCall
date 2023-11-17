@@ -12,6 +12,7 @@
     "server": "electron .",
     "prismaMigrate": "cd src/db && prisma migrate dev --name init",
     "prismaFormat": "cd src/db && prisma format",
+    "prismaGenerate": "cd src/db && prisma generate",
     "package": "electron-forge package",
     "make": "electron-forge make"
   },
