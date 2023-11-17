@@ -5,10 +5,11 @@ exports.listen = (port) => {
 
 
     const httpServer = createServer();
-    const io = new Server({
+    const io = new Server(httpServer, {
         cors: {
-            origins: ["*"], // Only allow requests from https://example.com
+            origin: '*',
         },
+        transports: ['websocket'],
     });
 
     io.attach(httpServer);
