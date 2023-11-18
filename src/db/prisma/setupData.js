@@ -16,7 +16,7 @@ console.log("SETUP DATA");
             "senha": "bf76e97eb6d97c938658ee141d905ac8a6dd82715f945f05fcd40137675f8339",
             "tratamentoId": 7,
             "roleId": 1,
-            "isActive": 1
+            "isActive": true
         },
         {
             "id": 2,
@@ -26,7 +26,7 @@ console.log("SETUP DATA");
             "senha": "bab6baac5e97cb67e56ebe5afd90b337e37fc5f924593c0cae09af35f7861a48",
             "tratamentoId": 4,
             "roleId": 1,
-            "isActive": 1
+            "isActive": true
         }
     ]
 
