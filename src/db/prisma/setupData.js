@@ -173,7 +173,7 @@ console.log("SETUP DATA");
         const item = users[i];
         let toUpdate = { ...item };
         delete toUpdate['senha'];
-        await db.destinoAtendimento.upsert({
+        await db.user.upsert({
             create: item, update: toUpdate, where: { id: item.id },
         })
 
