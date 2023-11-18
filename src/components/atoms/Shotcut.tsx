@@ -8,7 +8,7 @@ interface IProps extends Shotcuts {
 export const Shotcut = (props: IProps) => {
 
     return (<>
-        <Box _hover={{ backgroundColor: 'brand.300' }} shadow={'2xl'} borderRadius={10} bg={'brand.500'} h={'70px'} w={'99%'} cursor={'pointer'} onClick={() => props.onClick ? props.onClick() : null}>
+        <Box _hover={{ backgroundColor: 'brand.300' }} shadow={'2xl'} borderRadius={10} bg={'brand.500'} h={'-moz-max-content'} w={'99%'} cursor={'pointer'} onClick={() => props.onClick ? props.onClick() : null}>
             <Flex padding={2} color={'white'}>
                 <VStack textAlign={'left'} flex={1}>
                     <Tooltip label={props.identificador}>

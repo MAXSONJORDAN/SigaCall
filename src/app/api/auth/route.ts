@@ -34,7 +34,8 @@ export async function POST(req: NextRequest) {
     const dataToken = { ...user }
     delete dataToken.senha;
 
-    const token = jwt.sign(dataToken, process.env.JWT_TOKEN??"SecretSigaCallKey", { expiresIn: '9h' })
+
+    const token = jwt.sign(dataToken, process.env.JWT_KEY ?? "SecretSigaCallKey", { expiresIn: '9h' })
 
 
     if (!user) {

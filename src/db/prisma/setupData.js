@@ -39,6 +39,10 @@ console.log("SETUP DATA");
         {
             id: 2,
             name: 'Operador'
+        },
+        {
+            id: 3,
+            name: 'Médico'
         }
     ]
 

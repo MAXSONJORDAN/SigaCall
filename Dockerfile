@@ -43,7 +43,7 @@ RUN git fetch --all
 WORKDIR /servidor-chamadas
 
 ENV DATABASE_URL="file:/app/data/dev.db"
-ENV JWT_TOKEN="j3sGJ8uySgZRWV2pJJ7cT46K8h"
+ENV JWT_KEY="j3sGJ8uySgZRWV2pJJ7cT46K8h"
 
 RUN yarn setupData
 # Resetando, puxando as alterações, instalando dependências, construindo e iniciando o aplicativo

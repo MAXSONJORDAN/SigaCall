@@ -7,6 +7,7 @@ import jwt from 'jsonwebtoken'
 import { redirect } from 'next/navigation'
 import { db } from '@/db/connector'
 import { SemPermissao } from '@/components/organismes/SemPermissao'
+import { Box } from '@chakra-ui/react'
 
 
 const inter = Inter({ subsets: ['latin'] })
@@ -42,7 +43,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
 
     return (
         <>
-            {user.roleId < 2?children:<SemPermissao user={user}/>}
+            {user.roleId < 2?<Box bg={'white'} borderRadius={10} height={'100%'} pl={5} pt={2} mr={4}>{children}</Box>:<SemPermissao user={user}/>}
         </>
     )
 }

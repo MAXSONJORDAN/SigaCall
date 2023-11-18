@@ -1,5 +1,5 @@
 'use client'
-import { Box, Center, Flex, HStack, Heading, Icon, Image, Input, InputGroup, InputLeftElement, Text, VStack, useToast } from '@chakra-ui/react'
+import { Box, Center, Flex, HStack, Heading, Icon, Image, Input, InputGroup, InputLeftElement, Text, VStack, useMediaQuery, useToast } from '@chakra-ui/react'
 import { MdCalendarMonth } from 'react-icons/md';
 import { useEffect, useState } from 'react';
 import { cumprimentoDoDia, formatarDataHora, formatarHora12, saudacaoDia } from '@/utils';
@@ -31,7 +31,8 @@ export function HomePage(props: IProps) {
     const [alertas, setAlertas] = useState<Alertas[]>([]);
     const [comunicando, setChamando] = useState(false);
     const [shotcutSearchTerm, setShotcutSearchTerm] = useState("");
-
+    const [isMaxW800] = useMediaQuery('(max-width: 800px)')
+    const [isMaxW500] = useMediaQuery('(max-width: 500px)')
 
     const toast = useToast({ position: 'top', isClosable: true });
 
@@ -147,11 +148,11 @@ export function HomePage(props: IProps) {
 
     return (
         <>
-            <Box paddingRight={6} height={'100%'} color={'gray.700'}>
+            <Box paddingRight={6} height={'100%'} overflow={isMaxW800?'auto':'unset'} overscroll={isMaxW800?'auto':'unset'} color={'gray.700'}>
 
-                <Flex>
+                <Flex direction={isMaxW800?'column':'row'}>
 
-                    <Flex flexDirection={'column'} width={"calc(70vw - 80px)"} >
+                    <Flex flexDirection={'column'} flex={1} >
 
                         <Box padding={3} bgColor={'white'} borderRadius={'2xl'} height={'150px'} borderBottomColor={'brand.500'} borderBottomWidth={'medium'} borderBottomRadius={'2xl'} shadow={'base'}>
                             <HStack height={'100%'}>
@@ -183,13 +184,13 @@ export function HomePage(props: IProps) {
                             </HStack>
                         </Box>
 
-                        <Flex h={'calc(100vh - 172px)'} direction={'row'}>
+                        <Flex h={isMaxW500?'100%':'calc(100vh - 172px)'} direction={isMaxW500?'column':'row'}>
                             <Flex flex={1} direction={'column'} padding={4}>
                                 <Heading size={'md'}>Últimas Chamadas</Heading>
 
                                 <VStack sx={{
                                     '&::-webkit-scrollbar': { width: '10px', borderRadius: '8px', backgroundColor: `rgba(0, 0, 0, 0.05)`, }, '&::-webkit-scrollbar-thumb': { backgroundColor: `rgba(0, 0, 0, 0.05)`, },
-                                }} bg={'white'} shadow={'xl'} height={'100%'} borderRadius={10} overflowX={'scroll'} padding={2} className="scrollbar">
+                                }} bg={'white'} shadow={'xl'} height={isMaxW500?'200px':'100%'} borderRadius={10} overflowX={'scroll'} padding={2} className="scrollbar">
 
                                     {pacientes.map(item => {
                                         return (<Chamada chamando={comunicando} onClick={(paciente, destino) => handleChamarPaciente(paciente, destino)} nome={item.paciente} destino={item.destinoAtendimento} hora={formatarHora12(new Date(item.hora))} />)
@@ -197,7 +198,7 @@ export function HomePage(props: IProps) {
 
                                 </VStack>
                             </Flex>
-                            <Flex flex={1} flexDirection={'column'} padding={4}>
+                            <Flex flex={1} flexDirection={'column'} padding={4} height={'100%'}>
                                 <Heading size={'md'}>Painel de Comando</Heading>
 
                                 <PacienteInput chamando={comunicando} onCaller={handleChamarPaciente} />
@@ -211,7 +212,7 @@ export function HomePage(props: IProps) {
 
 
 
-                    <Flex ml={2} flex={1} direction={'column'}>
+                    {props.user.roleId < 3 ? <Flex ml={2} flex={0.4} mt={isMaxW800?10:0} direction={'column'}>
                         <BoxNums BoxNums={[{ label: "Chamadas", value: pacientes.length }, { label: "Alertas", value: alertas.length }]} />
                         <Flex direction={'row'}>
                             <Heading padding={2}>
@@ -240,8 +241,7 @@ export function HomePage(props: IProps) {
                             })}
 
                         </VStack>
-                    </Flex>
-
+                    </Flex> : null}
 
                 </Flex>
 
