@@ -20,7 +20,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   let user: any = { nome: "" };
   if (token) {
     try {
-      jwt.verify(token.value, "CB45jmph@@")
+      jwt.verify(token.value, process.env.JWT_KEY??"SecretSigaCallKey")
       user = jwt.decode(token.value);
     } catch (error) {
       redirect("/admin/logout")

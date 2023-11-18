@@ -14,7 +14,7 @@ export async function GET(req: NextRequest) {
 
   // Perform a database query to retrieve all items from the "items" table
   cookies().delete('token')
-  redirect("/admin?logout=true")
+  redirect("/")
 
   // Return the items as a JSON response with status 200
   return new Response(JSON.stringify({}), {

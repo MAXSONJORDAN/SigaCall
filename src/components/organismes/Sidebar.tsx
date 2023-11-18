@@ -27,6 +27,7 @@ export function Sidebar({ children, token, user }: any) {
                     {/* <SidebarButton label='Atalhos Alertas' path='/chamadas' imageiconsrc='/img/chamada-icon.png' /> */}
                     <SidebarButton label='Configurações' path='/admin/configs' icon={'MdSettings'} />
                 </VStack>
+                <SidebarButton label='Sobre e Suporte' path='/admin/suporte' icon={'MdHelp'} />
                 <form action={() => logout().then(() => {
                     window.location.href = "/";
                 })}>
