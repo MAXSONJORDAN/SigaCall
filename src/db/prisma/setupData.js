@@ -7,6 +7,30 @@ console.log("SETUP DATA");
 (async () => {
     console.log("roles");
 
+    const users = [
+        {
+            "id": 1,
+            "email": "maxson.jordan@gmail.com",
+            "nome": "Maxson Jordan Matos Araújo",
+            "nomeTratamento": "ADM Maxson Araújo",
+            "senha": "bf76e97eb6d97c938658ee141d905ac8a6dd82715f945f05fcd40137675f8339",
+            "tratamentoId": 7,
+            "roleId": 1,
+            "isActive": 1
+        },
+        {
+            "id": 2,
+            "email": "ammpi2011@hotmail.com",
+            "nome": "Karla Nogueira",
+            "nomeTratamento": "Sra. Karla Nogueira",
+            "senha": "bab6baac5e97cb67e56ebe5afd90b337e37fc5f924593c0cae09af35f7861a48",
+            "tratamentoId": 4,
+            "roleId": 1,
+            "isActive": 1
+        }
+    ]
+
+
     const roles = [
         {
             id: 1,
@@ -61,12 +85,31 @@ console.log("SETUP DATA");
         }
     ]
 
+
     const shotcuts = [
         {
             "id": 1,
-            "identificador": "Silêncio",
+            "identificador": "Silêncio Padrão",
             "mensagem": "Por favor, mantenha o ambiente tranquilo para o conforto de todos. Agradecemos a sua compreensão.",
-            "icone": "MdVoiceOverOff"
+            "icone": "MdSpeakerNotes"
+        },
+        {
+            "id": 10,
+            "identificador": "Antenção a Tranquilidade",
+            "mensagem": "Solicitamos a colaboração de todos para manter um ambiente tranquilo. O barulho excessivo pode afetar os atendimentos em andamento. Agradecemos a compreensão.",
+            "icone": "MdVolumeOff"
+        },
+        {
+            "id": 11,
+            "identificador": "Cuidado com o Silêncio",
+            "mensagem": "Em respeito aos pacientes e profissionais, pedimos que mantenham o ambiente em silêncio. O foco no atendimento é fundamental. Agradecemos pela compreensão.",
+            "icone": "MdDoNotDisturbOnTotalSilence"
+        },
+        {
+            "id": 12,
+            "identificador": "Silencie Vídeos e Áudios",
+            "mensagem": "Se possível, silencie vídeos e áudios ao utilizar seus dispositivos móveis. Isso é essencial para manter um ambiente respeitoso aos cuidados médicos. Obrigado pela compreensão.",
+            "icone": "MdSmartphone"
         }
     ]
 
@@ -89,7 +132,7 @@ console.log("SETUP DATA");
 
     console.log("Roles...");
     for (let i = 0; i < roles.length; i++) {
-        console.log("inserting "+(i+1));
+        console.log("inserting " + (i + 1));
         const role = roles[i];
         await db.role.upsert({
             create: role, update: role, where: { id: role.id },
@@ -98,7 +141,7 @@ console.log("SETUP DATA");
 
     console.log("Tratamentos...");
     for (let i = 0; i < tratamentos.length; i++) {
-        console.log("inserting "+(i+1));
+        console.log("inserting " + (i + 1));
         const tratamento = tratamentos[i];
         await db.tratamento.upsert({
             create: tratamento, update: tratamento, where: { id: tratamento.id },
@@ -107,7 +150,7 @@ console.log("SETUP DATA");
 
     console.log("Shotcuts...");
     for (let i = 0; i < shotcuts.length; i++) {
-        console.log("inserting "+(i+1));
+        console.log("inserting " + (i + 1));
         const item = shotcuts[i];
         await db.shotcuts.upsert({
             create: item, update: item, where: { id: item.id },
@@ -117,7 +160,7 @@ console.log("SETUP DATA");
 
     console.log("destinoAtendimento...");
     for (let i = 0; i < destinoAtendimento.length; i++) {
-        console.log("inserting "+(i+1));
+        console.log("inserting " + (i + 1));
         const item = destinoAtendimento[i];
         await db.destinoAtendimento.upsert({
             create: item, update: item, where: { id: item.id },
@@ -128,32 +171,16 @@ console.log("SETUP DATA");
     const countUsers = await db.user.count();
     console.log("users:", countUsers);
 
-    if (countUsers > 0) {
-        const user = await db.user.findUnique({ where: { email: 'maxson.joran@gmail.com' } });
+    for (let i = 0; i < users.length; i++) {
+        const userItem = users[i];
+        const user = await db.user.findUnique({ where: { email: userItem.email } });
         if (!user) {
             db.user.create({
-                data: {
-                    email: 'maxson.jordan@gmail.com',
-                    nome: 'Maxson Jordan Matos Araújo',
-                    nomeTratamento: 'Adm Maxson',
-                    senha: 'bf76e97eb6d97c938658ee141d905ac8a6dd82715f945f05fcd40137675f8339',
-                    roleId: 1,
-                    tratamentoId: 7
-                }
+                data: userItem
             })
         }
-    } else {
-        await db.user.create({
-            data: {
-                email: 'maxson.jordan@gmail.com',
-                nome: 'Maxson Jordan Matos Araújo',
-                nomeTratamento: 'Adm Maxson',
-                senha: 'bf76e97eb6d97c938658ee141d905ac8a6dd82715f945f05fcd40137675f8339',
-                roleId: 1,
-                tratamentoId: 7
-            }
-        })
     }
+
 
 })();
 

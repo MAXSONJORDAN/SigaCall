@@ -5,3 +5,5 @@ export default function Home() {
     <><ConfigsPage /></>
   )
 }
+
+export const revalidate = 0;

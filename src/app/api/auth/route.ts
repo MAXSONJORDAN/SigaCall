@@ -17,7 +17,7 @@ export async function POST(req: NextRequest) {
     const { email, senha } = data;
 
 
-    const user:any = await db.user.findUnique({ where: { email: email } }).catch((err) => {
+    const user: any = await db.user.findUnique({ where: { email: email } }).catch((err) => {
         console.error(err);
         return "erro";;
     })
@@ -44,7 +44,7 @@ export async function POST(req: NextRequest) {
         });
     }
 
-   
+
 
     // Criar o hash da senha digitada
     const hashDigitado = createHash('sha256').update(senha).digest('hex');

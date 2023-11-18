@@ -46,6 +46,7 @@ export function EditDestinosAtendimentoPage(props: IProps) {
                 const data = axiosResponse.data;
                 toast({ title: "Sucesso!", description: data.message, status: "success" })
                 router.push("/admin/configs/destinos");
+                router.refresh();
             }).catch((err) => {
                 console.error(err);
                 toast({ title: "Ops!", description: err.response.data.message ?? "Falha desconhecida!", status: "error" })

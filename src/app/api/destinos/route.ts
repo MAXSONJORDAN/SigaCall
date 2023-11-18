@@ -2,6 +2,20 @@ import { NextRequest } from "next/server";
 import { revalidatePath } from "next/cache";
 import { db } from '@/db/connector';
 
+
+export async function DELETE(req: NextRequest) {
+
+  const params = req.nextUrl.searchParams;
+  const id: any =  parseInt(params.get("id")??"0");
+  const result = await db.destinoAtendimento.delete({ where: { id } })
+  console.log("Resulto", result);
+  return new Response(JSON.stringify({ message: "Apagado com sucesso!" }), {
+    headers: { "Content-Type": "application/json", 'Cache-Control': 'no-store' },
+    status: 200,
+  });
+
+}
+
 export async function GET(req: NextRequest) {
 
   // Check if the database instance has been initialized

@@ -1,5 +1,5 @@
 'use client'
-import { Box, Breadcrumb, BreadcrumbItem, BreadcrumbLink, Button, Checkbox, Flex, HStack, Heading, Input, InputGroup, InputLeftElement, VStack, useToast } from '@chakra-ui/react'
+import { Box, Breadcrumb, BreadcrumbItem, BreadcrumbLink, Button, ButtonGroup, Checkbox, Flex, HStack, Heading, Input, InputGroup, InputLeftElement, VStack, useToast } from '@chakra-ui/react'
 import { MdPersonAdd } from 'react-icons/md';
 import { useEffect, useState } from 'react';
 import { Search2Icon } from '@chakra-ui/icons';
@@ -7,6 +7,8 @@ import { DataTable } from '../organismes/DataTable';
 import Link from 'next/link';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
+import { DeleteButton } from '../molecules/DeleteButton';
+
 
 export function UsersPage() {
 
@@ -20,11 +22,28 @@ export function UsersPage() {
 
             const data = axiosResult.data;
             data.map((user: any) => {
-                user.actions = (<Button colorScheme={user.id === 1 ? 'gray' : 'brand'}
-                    onClick={() => {
-                        if (user.id !== 1) { router.push(`users/editar/${user.id}`) }
-                    }}
-                >Editar</Button>)
+                user.actions = (
+                    <ButtonGroup size={'sm'}>
+                        <Button colorScheme={user.id === 1 ? 'gray' : 'brand'}
+                            onClick={() => {
+                                if (user.id !== 1) { router.push(`users/editar/${user.id}`) }
+                            }}
+                        >Editar</Button>
+                        <DeleteButton onConfimation={() => {
+                            axios.delete("/api/users", {
+                                params: {
+                                    id: user.id
+                                }
+                            }).then((axiosResult) => {
+                                const data = axiosResult.data;
+                                toast({ title: "Sucesso!", description: data.message ?? "Feito com sucesso!", status: "success" })
+                                updateUsers();
+                            }).catch((err) => {
+                                const data = err.response.data;
+                                toast({ title: "Error!", description: data.message ?? "Erro desconhecido!", status: "error" })
+                            })
+                        }} />
+                    </ButtonGroup>)
                 user.status = (<Checkbox disabled={user.id === 1} isChecked={user.isActive}
                     onChange={(ev: any) => {
 

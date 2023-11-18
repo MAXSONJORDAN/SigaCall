@@ -48,6 +48,7 @@ export function EditUserPage(props: IProps) {
             toast({ "title": "Sucesso!", description: data.message, status: 'success' });
 
             router.push("/admin/configs/users");
+            router.refresh();
         }).catch((err: any) => {
             const data = err.response?.data;
             toast({ "title": "Algo errado!", description: data.message, status: 'error' });

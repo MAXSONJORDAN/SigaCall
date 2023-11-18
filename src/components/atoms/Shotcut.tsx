@@ -12,7 +12,7 @@ export const Shotcut = (props: IProps) => {
             <Flex padding={2} color={'white'}>
                 <VStack textAlign={'left'} flex={1}>
                     <Tooltip label={props.identificador}>
-                        <Heading w={'100%'} size={'md'} textAlign={'left'} flex={1} noOfLines={1} textOverflow={'ellipsis'}>
+                        <Heading w={'100%'} size={'md'} textAlign={'left'} flex={1}  textOverflow={'ellipsis'}>
                             {props.identificador}
                         </Heading>
                     </Tooltip>

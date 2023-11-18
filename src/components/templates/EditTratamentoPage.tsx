@@ -43,6 +43,7 @@ export function EditTratamentoPage(props: IProps) {
                 const data = axiosResponse.data;
                 toast({ title: "Sucesso!", description: "Tratamento cadastrado com sucesso!", status: "success" })
                 router.push("/admin/configs/tratamentos");
+                router.refresh();
             }).catch((err) => {
                 console.error(err);
                 toast({ title: "Ops!", description: err.response.data.message ?? "Falha desconhecida!", status: "error" })

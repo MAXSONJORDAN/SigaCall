@@ -4,7 +4,7 @@ import { revalidatePath } from 'next/cache'
 import { Inter } from 'next/font/google'
 import { cookies, headers } from 'next/headers'
 import jwt from 'jsonwebtoken'
-import { redirect } from 'next/dist/server/api-utils'
+import { redirect } from 'next/navigation'
 
 
 const inter = Inter({ subsets: ['latin'] })
@@ -16,19 +16,17 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
 
-  let token:any = cookies().get("token");
+  let token: any = cookies().get("token");
   let user: any = { nome: "" };
   if (token) {
-    if (jwt.verify(token.value, "CB45jmph@@")) {
+    try {
+      jwt.verify(token.value, "CB45jmph@@")
       user = jwt.decode(token.value);
-    } else {
-      cookies().delete("token");
-      token = null;
+    } catch (error) {
+      redirect("/admin/logout")
     }
 
-  }
-
-
+  } 
 
   return (
     <Sidebar token={token} user={user}>

@@ -1,5 +1,5 @@
 'use client'
-import { Box, Breadcrumb, BreadcrumbItem, BreadcrumbLink, Button, Flex, HStack, Heading, Icon, Input, InputGroup, InputLeftElement, VStack } from '@chakra-ui/react'
+import { Box, Breadcrumb, BreadcrumbItem, BreadcrumbLink, Button, ButtonGroup, Flex, HStack, Heading, Icon, Input, InputGroup, InputLeftElement, VStack, useToast } from '@chakra-ui/react'
 import { MdPersonAdd } from 'react-icons/md';
 import { useEffect, useState } from 'react';
 import { Search2Icon } from '@chakra-ui/icons';
@@ -8,6 +8,7 @@ import Link from 'next/link';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
 import * as Icons from 'react-icons/md'
+import { DeleteButton } from '../molecules/DeleteButton';
 
 export function ShotcutsPage() {
 
@@ -15,19 +16,37 @@ export function ShotcutsPage() {
     const [searchText, setSearchText] = useState("");
 
 
+    const toast = useToast({ position: 'top', isClosable: true })
     const router = useRouter();
 
-    useEffect(() => {
+    const updateShotcuts = () => {
 
         axios.get("/api/shotcuts").then((axiosResponse: any) => {
             const data = axiosResponse.data;
 
             data.map((shotcuts: any) => {
-                shotcuts.actions = (<Button colorScheme='brand'
-                    onClick={() => {
-                        router.push(`shotcuts/editar/${shotcuts.id}`)
-                    }}
-                >Editar</Button>)
+                shotcuts.actions = (<ButtonGroup size={'sm'}>
+                    <Button colorScheme='brand'
+                        onClick={() => {
+                            router.push(`shotcuts/editar/${shotcuts.id}`)
+                        }}
+                    >Editar</Button>
+                    <DeleteButton onConfimation={() => {
+                        axios.delete("/api/shotcuts", {
+                            params: {
+                                id: shotcuts.id
+                            }
+                        }).then((axiosResult) => {
+                            const data = axiosResult.data;
+                            toast({ title: "Sucesso!", description: data.message ?? "Feito com sucesso!", status: "success" })
+                            updateShotcuts()
+                        }).catch((err) => {
+                            const data = err.response.data;
+                            toast({ title: "Error!", description: data.message ?? "Erro desconhecido!", status: "error" })
+                        })
+                    }} />
+                </ButtonGroup>
+                )
                 //@ts-ignore
                 shotcuts.icon = (<Icon boxSize={'8'} as={Icons[shotcuts.icone]} />)
             })
@@ -36,6 +55,9 @@ export function ShotcutsPage() {
             setShotcuts(data);
         })
 
+    }
+    useEffect(() => {
+        updateShotcuts();
     }, [])
 
 
@@ -82,7 +104,7 @@ export function ShotcutsPage() {
                         [
                             { accessor: 'id', Header: "id" },
                             { accessor: 'identificador', Header: "Identificador" },
-                            { accessor: 'mensagem', Header: "Mensagem", columnWidth: 1 },
+                            { accessor: 'mensagem', Header: "Mensagem", columnWidth: 1, ellipSizeMode: true },
                             { accessor: 'icon', Header: "Icone." },
                             { accessor: "actions", Header: "Ações" }
 

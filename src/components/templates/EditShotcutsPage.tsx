@@ -19,7 +19,7 @@ export function EditShotcutsPage(props: IProps) {
     const [shotcut, setShotcut] = useState(editMode ? props.shotcut : {
         identificador: '',
         mensagem: '',
-        icone: '',
+        icone: 'MdSpeakerNotes',
     });
 
     const [icones, setIcones] = useState<any[]>([]);
@@ -46,6 +46,7 @@ export function EditShotcutsPage(props: IProps) {
                 const data = axiosResponse.data;
                 toast({ title: "Sucesso!", description: data?.message, status: "success" })
                 router.push("/admin/configs/shotcuts");
+                router.refresh();
             }).catch((err) => {
                 console.error(err);
                 toast({ title: "Ops!", description: err.response.data.message ?? "Falha desconhecida!", status: "error" })
@@ -63,10 +64,10 @@ export function EditShotcutsPage(props: IProps) {
         for (const key in icons) {
             ics.push(key);
         }
-        setShotcut({
-            ...shotcut,
-            icone: ics[0],
-        });
+        // setShotcut({
+        //     ...shotcut,
+        //     icone: 'MdSpeakerNotes'//ics[0],
+        // });
         setIcones(ics);
     },[])
 

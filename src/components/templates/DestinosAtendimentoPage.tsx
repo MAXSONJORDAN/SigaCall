@@ -1,5 +1,5 @@
 'use client'
-import { Box, Breadcrumb, BreadcrumbItem, BreadcrumbLink, Button, Flex, HStack, Heading, Icon, Input, InputGroup, InputLeftElement, VStack } from '@chakra-ui/react'
+import { Box, Breadcrumb, BreadcrumbItem, BreadcrumbLink, Button, ButtonGroup, Flex, HStack, Heading, Icon, Input, InputGroup, InputLeftElement, VStack, useToast } from '@chakra-ui/react'
 import { MdPersonAdd } from 'react-icons/md';
 import { useEffect, useState } from 'react';
 import { Search2Icon } from '@chakra-ui/icons';
@@ -7,6 +7,7 @@ import { DataTable } from '../organismes/DataTable';
 import Link from 'next/link';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
+import { DeleteButton } from '../molecules/DeleteButton';
 
 export function DestinosAtendimentoPage() {
 
@@ -14,25 +15,47 @@ export function DestinosAtendimentoPage() {
     const [searchText, setSearchText] = useState("");
 
 
+    const toast = useToast({ position: 'top', isClosable: true })
     const router = useRouter();
 
-    useEffect(() => {
+    const updateDestinos = () => {
 
         axios.get("/api/destinos").then((axiosResponse: any) => {
             const data = axiosResponse.data;
 
-            data.map((consultorio: any) => {
-                consultorio.actions = (<Button colorScheme='brand'
-                    onClick={() => {
-                        router.push(`destinos/editar/${consultorio.id}`)
-                    }}
-                >Editar</Button>)
+            data.map((destino: any) => {
+                destino.actions = (
+                    <ButtonGroup size={'sm'}>
+                        <Button colorScheme='brand'
+                            onClick={() => {
+                                router.push(`destinos/editar/${destino.id}`)
+                            }}
+                        >Editar</Button>
+                        <DeleteButton onConfimation={() => {
+                            axios.delete("/api/destinos", {
+                                params: {
+                                    id: destino.id
+                                }
+                            }).then((axiosResult) => {
+                                const data = axiosResult.data;
+                                toast({ title: "Sucesso!", description: data.message ?? "Feito com sucesso!", status: "success" })
+                                updateDestinos()
+                            }).catch((err) => {
+                                const data = err.response.data;
+                                toast({ title: "Error!", description: data.message ?? "Erro desconhecido!", status: "error" })
+                            })
+                        }} />
+                    </ButtonGroup>
+                )
             })
 
             // console.log("data", data)
             setDestinos(data);
         })
 
+    }
+    useEffect(() => {
+        updateDestinos();
     }, [])
 
 

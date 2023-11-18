@@ -5,3 +5,5 @@ export default function Home() {
     <><ShotcutsPage /></>
   )
 }
+
+export const revalidate = 0;

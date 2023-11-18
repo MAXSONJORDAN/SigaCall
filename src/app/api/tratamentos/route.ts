@@ -4,10 +4,21 @@ import { db } from '@/db/connector';
 
 
 
-// Let's initialize it as null initially, and we will assign the actual database instance later.
-// let db: Database<IDatabase, Statement> | null = null;
+export async function DELETE(req: NextRequest) {
 
-// Define the GET request handler function
+  const params = req.nextUrl.searchParams;
+  const id: any = parseInt(params.get("id") ?? "0");
+  const result = await db.tratamento.delete({ where: { id } })
+  console.log("Resulto", result);
+  return new Response(JSON.stringify({ message: "Apagado com sucesso!" }), {
+    headers: { "Content-Type": "application/json", 'Cache-Control': 'no-store' },
+    status: 200,
+  });
+
+}
+
+
+
 export async function GET(req: NextRequest) {
 
   // Check if the database instance has been initialized
@@ -22,7 +33,7 @@ export async function GET(req: NextRequest) {
   //   });
   // }
 
-  
+
 
   // await db.exec("insert into items ('name','description','img') values('"+req.nextUrl.searchParams.get("id")+"','teste','teste.img')")
 
