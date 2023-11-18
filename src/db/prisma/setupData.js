@@ -167,18 +167,16 @@ console.log("SETUP DATA");
         })
     }
 
-    console.log("contando users");
-    const countUsers = await db.user.count();
-    console.log("users:", countUsers);
-
+    console.log("Usuários...");
     for (let i = 0; i < users.length; i++) {
-        const userItem = users[i];
-        const user = await db.user.findUnique({ where: { email: userItem.email } });
-        if (!user) {
-            db.user.create({
-                data: userItem
-            })
-        }
+        console.log("inserting " + (i + 1));
+        const item = users[i];
+        let toUpdate = { ...item };
+        delete toUpdate['senha'];
+        await db.destinoAtendimento.upsert({
+            create: item, update: toUpdate, where: { id: item.id },
+        })
+
     }
 
 
