@@ -25,7 +25,7 @@ export function Sidebar({ children, token, user }: any) {
                 <VStack flex={1} justifyContent={'center'} spacing={5}>
                     <SidebarButton label='Inicio' path='/admin' icon={'MdHome'} />
                     {/* <SidebarButton label='Atalhos Alertas' path='/chamadas' imageiconsrc='/img/chamada-icon.png' /> */}
-                    {user.id < 2 ? <SidebarButton label='Configurações' path='/admin/configs' icon={'MdSettings'} /> : null}
+                    {user.roleId < 2 ? <SidebarButton label='Configurações' path='/admin/configs' icon={'MdSettings'} /> : null}
                 </VStack>
                 <SidebarButton label='Sobre e Suporte' path='/admin/suporte' icon={'MdHelp'} />
                 <form action={() => logout().then(() => {
