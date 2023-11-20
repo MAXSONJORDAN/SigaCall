@@ -11,7 +11,7 @@ if (!(process.argv && process.argv.includes("build"))) {
   }
 
   if (!process.env.SOCKETURL) {
-    const port = process.env.CUSTOM_PORT ?? 3003//Math.floor((new Date().getTime() % 10000) + 1000);
+    const port = process.env.CUSTOM_PORT ?? 3001//Math.floor((new Date().getTime() % 10000) + 1000);
     const host = process.env.CUSTOM_HOST ?? '127.0.0.1'
     const urlSock = host + ":" + port;
     process.env.SOCKETURL = urlSock;
@@ -19,7 +19,7 @@ if (!(process.argv && process.argv.includes("build"))) {
     app.listen(port)
     console.log("listening socket on http://" + urlSock)
   } else {
-    const port = process.env.CUSTOM_PORT_SEC ?? 3004//Math.floor((new Date().getTime() % 10000) + 1000);
+    const port = process.env.CUSTOM_PORT_SEC ?? 3002//Math.floor((new Date().getTime() % 10000) + 1000);
     const host = process.env.CUSTOM_HOST ?? '127.0.0.1'
     const urlSock = host + ":" + port;
     process.env.SOCKETURL = urlSock;
