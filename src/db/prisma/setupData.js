@@ -131,6 +131,34 @@ console.log("SETUP DATA");
     ]
 
 
+    const chamadasConfigs = [
+        {
+            "id": 1,
+            "name": "mensagem",
+            "value": "{paciente}, {solicitante} está disponível para atender você. Por favor, encaminhe-se à {destinoAtendimento} para ser atendido."
+        },
+        {
+            "id": 2,
+            "name": "velocidade",
+            "value": "5"
+        },
+        {
+            "id": 3,
+            "name": "repeticoes",
+            "value": "2"
+        },
+        {
+            "id": 4,
+            "name": "repeticoesAlertas",
+            "value": "2"
+        },
+        {
+            "id": 5,
+            "name": "voz",
+            "value": "Default"
+        }
+    ]
+
 
 
 
@@ -167,6 +195,15 @@ console.log("SETUP DATA");
         console.log("inserting " + (i + 1));
         const item = destinoAtendimento[i];
         await db.destinoAtendimento.upsert({
+            create: item, update: item, where: { id: item.id },
+        })
+    }
+
+    console.log("chamadasConfigs...");
+    for (let i = 0; i < chamadasConfigs.length; i++) {
+        console.log("inserting " + (i + 1));
+        const item = chamadasConfigs[i];
+        await db.chamadasConfigs.upsert({
             create: item, update: item, where: { id: item.id },
         })
     }
