@@ -10,8 +10,24 @@ export async function POST(req: NextRequest) {
 
 
     const data = await req.json();
-    const chamada = { destinoAtendimento: data.destinoAtendimento, paciente: data.paciente, userId: 1, hora: new Date() }
+    const { paciente, destinoAtendimento, userId } = data;
+    const configs = await db.chamadasConfigs.findMany();
 
+    for (let i = 0; i < configs.length; i++) {
+        const config = configs[i];
+        data[config.name] = config.value;
+    }
+
+    const solicitanteQuery = await db.user.findUnique({ where: { id: userId } });
+
+    const solicitante = solicitanteQuery?.nomeTratamento;
+
+    data['mensagem'] = data['mensagem']
+        .replaceAll("{paciente}", paciente)
+        .replaceAll("{destinoAtendimento}", destinoAtendimento)
+        .replaceAll("{solicitante}", solicitante)
+
+    const chamada = { ...data, userId, hora: new Date() }
 
     const response = await db.chamadas.create({ data: chamada }).then(() => {
 

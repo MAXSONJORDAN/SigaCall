@@ -42,10 +42,21 @@ model Tratamento {
 model Chamadas {
   id                 Int      @id @default(autoincrement())
   paciente           String
-  destinoAtendimento String
+  destinoAtendimento String?
+  mensagem           String?
+  velocidade         String?
+  repeticoes         String?
+  repeticoesAlertas  String?
+  voz                String?
   hora               DateTime
   User               User?    @relation(fields: [userId], references: [id])
   userId             Int?
+}
+
+model ChamadasConfigs {
+  id    Int    @id @default(autoincrement())
+  name  String
+  value String
 }
 
 model Alertas {

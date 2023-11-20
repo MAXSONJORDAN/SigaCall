@@ -8,8 +8,22 @@ export async function POST(req: NextRequest) {
     // Check if the database instance has been initialized
     revalidatePath(req.nextUrl.basePath)
     const data = await req.json();
-    const alerta = { identificador: data.identificador, mensagem: data.mensagem, userId: 1, hora: new Date() }
+    let alerta = { identificador: data.identificador, mensagem: data.mensagem, userId: data.userId, hora: new Date() }
+    const configs = await db.chamadasConfigs.findMany();
 
+    let moreItens = {};
+    for (let i = 0; i < configs.length; i++) {
+        const config = configs[i];
+        moreItens[config.name] = config.value;
+    }
+
+
+    const solicitanteQuery = await db.user.findUnique({ where: { id: data.userId } });
+
+    const solicitante = solicitanteQuery?.nomeTratamento;
+
+    moreItens['mensagem'] = moreItens['mensagem']
+        .replaceAll("{solicitante}", solicitante)
 
     const response = await db.alertas.create({ data: alerta }).then(() => {
 
@@ -25,8 +39,9 @@ export async function POST(req: NextRequest) {
         });
     })
 
+    console.log("ALERTA", alerta)
     if (response.status === 200)
-        io.emit("alertar", alerta)
+        io.emit("alertar", { ...alerta, ...moreItens })
 
     return response;
 }
