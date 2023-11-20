@@ -6,7 +6,7 @@ type IProps = {
     chamando: boolean,
     onClick?: (paciente?: string, destino?: string) => void,
     nome: string,
-    destino: string,
+    destino: string | null,
     hora: string
 
 }
@@ -31,13 +31,13 @@ export const Chamada = (props: IProps) => {
                     </Tooltip>
                 </Flex>
                 <Flex direction={'column'}>
-                  <IconButton
+                    <IconButton
                         disabled={comunicando}
                         size={'xs'}
                         aria-label="repetir"
                         icon={<Icon boxSize={'6'} as={icons['MdRefresh']} />}
                         variant={'ghost'}
-                        colorScheme={comunicando?"gray":"brand"}
+                        colorScheme={comunicando ? "gray" : "brand"}
                         onClick={() => {
                             if (props.onClick && props.nome && props.destino && !comunicando)
                                 props.onClick(props.nome, props.destino)
