@@ -14,6 +14,7 @@ export async function POST(req: NextRequest) {
     let moreItens = {};
     for (let i = 0; i < configs.length; i++) {
         const config = configs[i];
+        if(config.name !== "mensagem")
         moreItens[config.name] = config.value;
     }
 
