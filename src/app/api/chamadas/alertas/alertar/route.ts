@@ -23,7 +23,7 @@ export async function POST(req: NextRequest) {
 
     const solicitante = solicitanteQuery?.nomeTratamento;
 
-    moreItens['mensagem'] = moreItens['mensagem']
+    data['mensagem'] = data['mensagem']
         .replaceAll("{solicitante}", solicitante)
 
     const response = await db.alertas.create({ data: alerta }).then(() => {
