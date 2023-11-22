@@ -25,8 +25,12 @@ RUN git clone https://maxsonjordan:github_pat_11AV2B2KA0RH3GffTIZWuI_0vcknmGHDac
 # Configurando o diretório de trabalho
 WORKDIR /servidor-chamadas
 
+RUN yarn
+
 # Adicionando a criação de um volume e copiando o arquivo dev.db
 VOLUME /app/data
+
+ENV DATABASE_URL="file:/app/data/dev.db"
 
 RUN if [ ! -e "/app/data/dev.db" ]; then cp src/db/prisma/dev.db /app/data/dev.db; fi
 
@@ -42,7 +46,7 @@ RUN git fetch --all
 # Configurando o diretório de trabalho
 WORKDIR /servidor-chamadas
 
-ENV DATABASE_URL="file:/app/data/dev.db"
+
 ENV JWT_KEY="j3sGJ8uySgZRWV2pJJ7cT46K8h"
 
 RUN yarn setupData
