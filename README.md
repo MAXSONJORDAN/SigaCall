@@ -56,6 +56,18 @@ docker run --name sigacall --restart always -p 80:3000 -p 443:3002 -p 3001:3001 
 
 Isso iniciará o servidor SigaCall, garantindo que esteja sempre disponível, mesmo após reinicializações.
 
+Caso seja o primeira vez, é necessário carregar a base de dados inicial, acesse ao container:
+
+```bash
+docker exec -it sigacall "/bin/bash"
+```
+
+De dentro do container execute o comando:
+
+```bash
+yarn setupData
+```
+
 Para acessar, basta acessar o navegador no host e porta personalizada, no caso acima: [http://sigacall/](http://sigacall/)
 
 ## Contribuindo
