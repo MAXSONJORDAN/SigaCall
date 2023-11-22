@@ -49,6 +49,9 @@ WORKDIR /servidor-chamadas
 
 ENV JWT_KEY="j3sGJ8uySgZRWV2pJJ7cT46K8h"
 
+RUN ls
+RUN ls /app/data
+RUN yarn prismaMigrate
 RUN yarn setupData
 # Resetando, puxando as alterações, instalando dependências, construindo e iniciando o aplicativo
 CMD git reset --hard HEAD && git pull && yarn prismaMigrate && yarn && yarn build && yarn start

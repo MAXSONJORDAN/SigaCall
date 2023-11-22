@@ -2,7 +2,7 @@ const { PrismaClient } = require('@prisma/client')
 
 const db = new PrismaClient();
 
-console.log("SETUP DATA");
+console.log("SETUP DATA", process.env);
 
 (async () => {
     console.log("roles");
