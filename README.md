@@ -51,7 +51,7 @@ Para inicializar o serviço, siga os passos abaixo:
 Após a construção da imagem, é necessário subir o container para que o servidor esteja ativo e funcionando corretamente. Utilize o seguinte comando:
 
 ```bash
-docker run --name sigacall --restart always -p 80:3000 -p 3001:3001 -p 3002:3002 chamadas
+docker run --name sigacall --restart always -p 80:3000 -p 443:3002 -p 3001:3001 -p 3002:3002 -p 3004:3004 chamadas
 ```
 
 Isso iniciará o servidor SigaCall, garantindo que esteja sempre disponível, mesmo após reinicializações.
