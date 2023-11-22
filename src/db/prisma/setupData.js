@@ -166,10 +166,10 @@ console.log("SETUP DATA", process.env);
     for (let i = 0; i < roles.length; i++) {
         console.log("inserting " + (i + 1));
         const role = roles[i];
-        await db.role.create({ data: role })
-        // await db.role.upsert({
-        //     create: role, update: role, where: { id: role.id },
-        // })
+        // await db.role.create({ data: role })
+        await db.role.upsert({
+            create: role, update: role, where: { id: role.id },
+        })
     }
 
     console.log("Tratamentos...");
