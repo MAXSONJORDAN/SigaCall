@@ -19,14 +19,12 @@ export const DestinoSelector = (props: IProps) => {
 
     const handleSave = (val) => {
         if (val) {
+            window.localStorage.setItem("destino", val)
             setValue(val)
             props.onChange(val)
-            if (window) {
-                window.localStorage.setItem("destino", val)
-            }
         } else {
             if (props.destinos && props.destinos.length > 0) {
-                const destino = props.destinos[0].identificador;
+                const destino = props.destinos[0].pronuncia;
                 setValue(destino);
                 props.onChange(destino);
                 window.localStorage.setItem("destino", destino)
@@ -121,7 +119,7 @@ export const DestinoSelector = (props: IProps) => {
                         onChange={(ev) => { setValue(ev.target.value) }}
                     >
                         {props.destinos.map((item: any) => {
-                            return <option value={item.identificador}>{item.identificador}</option>
+                            return <option value={item.pronuncia}>{item.identificador}</option>
                         })}
 
                     </Select>

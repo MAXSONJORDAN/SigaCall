@@ -150,7 +150,7 @@ console.log("SETUP DATA", process.env);
         {
             "id": 4,
             "name": "repeticoesAlertas",
-            "value": "2"
+            "value": "1"
         },
         {
             "id": 5,

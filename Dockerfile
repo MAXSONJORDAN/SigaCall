@@ -49,6 +49,8 @@ WORKDIR /servidor-chamadas
 
 ENV JWT_KEY="j3sGJ8uySgZRWV2pJJ7cT46K8h"
 
+RUN npm install -g local-ssl-proxy
+
 # RUN git pull
 # RUN ls
 # RUN ls /app/data
