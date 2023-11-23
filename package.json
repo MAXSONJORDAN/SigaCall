@@ -7,7 +7,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "npx -y local-ssl-proxy --source 3002 --target 3000 | npx -y local-ssl-proxy --source 3004 --target 3001 | next start",
-    "startAmmpi": "next start -p 8080",
+    "startAmmpi": "next start -p 80",
     "startForge": "electron-forge start",
     "lint": "next lint",
     "server": "electron .",
