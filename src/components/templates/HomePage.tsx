@@ -63,7 +63,7 @@ export function HomePage(props: IProps) {
             axios.post("/api/chamadas/pacientes/chamar", {
                 paciente,
                 destinoAtendimento: destino ?? destinoAtendimento,
-                userId: props.user.roleId
+                userId: props.user.id
             }).finally(() => {
                 setTimeout(() => {
                     setChamando(false);
@@ -80,7 +80,7 @@ export function HomePage(props: IProps) {
             axios.post("/api/chamadas/alertas/alertar", {
                 identificador,
                 mensagem,
-                userId: props.user.roleId
+                userId: props.user.id
             }).finally(() => {
                 setTimeout(() => {
                     setChamando(false);
